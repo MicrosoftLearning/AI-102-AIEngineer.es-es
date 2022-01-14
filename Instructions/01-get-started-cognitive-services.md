@@ -29,7 +29,7 @@ Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el ento
 Azure Cognitive Services son servicios basados en la nube que encapsulan funcionalidades de inteligencia artificial que se pueden incorporar a las aplicaciones. Puede aprovisionar recursos individuales de Cognitive Services para API específicas (por ejemplo, **Text Analytics** o **Computer Vision**), o puede aprovisionar un recurso general de **Cognitive Services** que proporcione acceso a varias Cognitive Services APIs a través de una clave y punto de conexión únicos. En este caso, usará un único recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. Seleccione el botón **&amp;#65291;Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
+2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
     - **Región**: *elija cualquier región disponible*
