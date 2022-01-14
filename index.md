@@ -13,7 +13,7 @@ ms.locfileid: "132625913"
 
 Este repositorio contiene los ejercicios de laboratorio práctico del curso de Microsoft [AI-102: Diseño e implementación de una solución de Microsoft Azure AI](https://docs.microsoft.com/learn/certifications/courses/ai-102t00) y los [módulos autodirigidos equivalentes de Microsoft Learn](https://aka.ms/AzureLearn_AIEngineer). Los ejercicios están pensados para complementar los materiales de aprendizaje y permiten practicar el uso de las tecnologías descritas en estos materiales.
 
-Para completar estos ejercicios, necesitará una suscripción a Microsoft Azure. Si su instructor no se le ha proporcionado, puede registrarse para obtener una evaluación gratuita en [https://azure.microsoft.com](https://azure.microsoft.com).
+Para completar estos ejercicios, necesitará una suscripción a Microsoft Azure. Si su instructor no se la ha proporcionado, puede registrarse para obtener una evaluación gratuita en[https://azure.microsoft.com](https://azure.microsoft.com).
 
 ## <a name="labs"></a>Laboratorios
 

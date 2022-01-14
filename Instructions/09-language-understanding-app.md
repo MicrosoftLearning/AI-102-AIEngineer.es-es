@@ -138,7 +138,7 @@ Ahora que ha agregado algunas intenciones, vamos a entrenar la aplicación y a v
 
 6. Cierre el panel Prueba.
 
-## <a name="add-entities"></a>agregar entidades
+## <a name="add-entities"></a>Agregar entidades
 
 Hasta ahora ha definido algunas expresiones simples que se asignan a intenciones. La mayoría de las aplicaciones reales incluyen expresiones más complejas de las que se deben extraer entidades de datos específicas para obtener más contexto para la intención.
 
