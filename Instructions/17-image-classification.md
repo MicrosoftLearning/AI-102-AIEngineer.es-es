@@ -88,7 +88,7 @@ Ahora que ha entrenado el modelo, puede probarlo.
 
 4. Cierre la ventana **Quick Test**.
 
-## <a name="view-the-project-settings"></a>Vea la configuración del proyecto
+## <a name="view-the-project-settings"></a>Visualización de la configuración del proyecto
 
 Al proyecto que ha creado se le ha asignado un identificador único, que deberá especificar en cualquier código que interactúe con él.
 
