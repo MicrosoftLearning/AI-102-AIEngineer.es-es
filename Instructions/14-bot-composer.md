@@ -122,7 +122,7 @@ En primer lugar, debe definir un flujo de diálogo que se usará para controlar 
 
 11. Si la llamada se realizó correctamente, debe almacenar la respuesta en una variable. En el lienzo creación, en la rama **True**, agregue una acción **Administrar propiedades** > **Establecer propiedades**. A continuación, en el panel de propiedades, agregue las siguientes asignaciones de propiedades:
 
-    | Propiedad | Value |
+    | Propiedad | Valor |
     | -- | -- |
     | `dialog.weather` | `=dialog.api_response.content.weather[0].description` |
     | `dialog.temp` | `=round(dialog.api_response.content.main.temp)` |
