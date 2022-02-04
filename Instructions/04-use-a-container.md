@@ -2,12 +2,12 @@
 lab:
   title: Uso de contenedores de Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 5113ae946307ded7d4bb0674ef25da8687ab6890
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: c222f5526a09ee1ae2aad3732fe2e29eb14c12ef
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625892"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801342"
 ---
 # <a name="use-a-cognitive-services-container"></a>Uso de contenedores de Cognitive Services
 
@@ -17,7 +17,7 @@ Muchas de las API de Cognitive Services se pueden empaquetar e implementar en un
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
+Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
 
 1. Inicie Visual Studio Code.
 2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
@@ -28,7 +28,7 @@ Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno e
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -38,7 +38,7 @@ Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de 
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
+4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
 ## <a name="deploy-and-run-a-text-analytics-container"></a>Implementación y ejecución de un contenedor de Text Analytics
@@ -54,7 +54,7 @@ Muchas API de Cognitive Services de uso frecuente están disponibles en imágene
         - **Región**: *elija cualquier región disponible*
         - **Origen de imagen**: Docker Hub u otro registro
         - **Tipo de imagen**: pública
-        - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.012840001-amd64`
+        - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
         - **Tipo de SO**: Linux
         - **Tamaño**: 1 vcpu, 4 GB de memoria
     - **Redes**:

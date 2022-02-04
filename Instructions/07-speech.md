@@ -2,12 +2,12 @@
 lab:
   title: Reconocimiento y síntesis de voz
   module: Module 4 - Building Speech-Enabled Applications
-ms.openlocfilehash: 88f5d500dc5adad83bdd476a278329792e1b2e45
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 9867905b0189fa5932dba02cd0815817171e4928
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625884"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801360"
 ---
 # <a name="recognize-and-synthesize-speech"></a>Reconocimiento y síntesis de voz
 
@@ -33,7 +33,7 @@ Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el ento
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -43,7 +43,7 @@ Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de 
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
+4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará una de las claves y la ubicación en la que se aprovisiona el servicio desde esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-speech-service"></a>Preparación para usar el servicio Voz
@@ -58,13 +58,13 @@ En este ejercicio, completará una aplicación cliente implementada parcialmente
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.14.0
+    pip install azure-cognitiveservices-speech==1.19.0
     ```
 
 3. Consulte el contenido de la carpeta **speaking-clock** y observe que contiene un archivo para las opciones de configuración:
@@ -350,7 +350,7 @@ La aplicación de reloj de voz usa una voz predeterminada, que se puede cambiar.
 
     ```C#
     // Configure speech synthesis
-    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural"; // add this
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-LibbyNeural"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -358,7 +358,7 @@ La aplicación de reloj de voz usa una voz predeterminada, que se puede cambiar.
     
     ```Python
     # Configure speech synthesis
-    speech_config.speech_synthesis_voice_name = 'en-GB-RyanNeural' # add this
+    speech_config.speech_synthesis_voice_name = 'en-GB-LibbyNeural' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 

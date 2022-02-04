@@ -2,12 +2,12 @@
 lab:
   title: Traducir voz
   module: Module 4 - Building Speech-Enabled Applications
-ms.openlocfilehash: 54bc0d9f942455e981437ecf5fe4a9de828c1cfb
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 45c8d0d31bee5901247b22917d8dbad8c587a0bd
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625953"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801354"
 ---
 # <a name="translate-speech"></a>Traducir voz
 
@@ -17,7 +17,7 @@ El servicio de **Voz** incluye una API **Speech Translation** que puede usar par
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
+Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
 
 1. Inicie Visual Studio Code.
 2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
@@ -38,7 +38,7 @@ Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Co
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
+4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará una de las claves y la ubicación en la que se aprovisiona el servicio desde esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-speech-translation-service"></a>Preparación para usar el servicio Speech Translation
@@ -53,13 +53,13 @@ En este ejercicio, completará una aplicación cliente implementada parcialmente
     **C#**
 
     ```
-    dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.19.0
     ```
     
     **Python**
     
     ```
-    pip install azure-cognitiveservices-speech==1.14.0
+    pip install azure-cognitiveservices-speech==1.19.0
     ```
 
 3. Consulte el contenido de la carpeta **translator** y fíjese en que contiene un archivo para las opciones de configuración:
