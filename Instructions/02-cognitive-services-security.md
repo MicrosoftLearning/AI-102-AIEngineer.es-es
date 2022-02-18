@@ -2,12 +2,12 @@
 lab:
   title: Administración de la seguridad de Azure Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: b4606ae6dd11a94505b828f4454786f66fd0ad16
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: dcab47cf20f54d6bcbed9a3e40081b703fc2d5ba
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625996"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801336"
 ---
 # <a name="manage-cognitive-services-security"></a>Administración de la seguridad de Azure Cognitive Services
 
@@ -17,7 +17,7 @@ El acceso a Cognitive Services normalmente se controla mediante claves de autent
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
+Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
 
 1. Inicie Visual Studio Code.
 2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
@@ -28,7 +28,7 @@ Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno e
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -131,7 +131,7 @@ En primer lugar, debe crear un almacén de claves y agregar un *secreto* para la
 
 ### <a name="create-a-service-principal"></a>Creación de una entidad de servicio
 
-Para acceder al secreto del almacén de claves, la aplicación debe usar una entidad de servicio que tenga acceso al secreto. Usará la interfaz de la línea de comandos (CLI) de Azure para crear la entidad de servicio y conceder acceso al secreto en Azure Key Vault.
+Para acceder al secreto del almacén de claves, la aplicación debe usar una entidad de servicio que tenga acceso al secreto. Usará la interfaz de la línea de comandos (CLI) de Azure para crear la entidad de servicio, encontrar su id. de objeto y conceder acceso al secreto en Azure Key Vault.
 
 1. Vuelva a Visual Studio Code y, en el terminal integrado de la carpeta **02-cognitive-security**, ejecute el siguiente comando de la CLI de Azure; reemplace *&lt;spName &gt;* por un nombre adecuado para una identidad de aplicación (por ejemplo, *ai-app*). Reemplace también *&lt;subscriptionId&gt;* y *&lt;resourceGroup&gt;* por los valores correctos para el id. de suscripción y el grupo de recursos que contienen los recursos de Cognitive Services y del almacén de claves:
 
@@ -155,15 +155,21 @@ La salida de este comando incluye información sobre la nueva entidad de servici
 
 Tome nota de los valores de **appId**,**password** y **tenant**: los necesitará más adelante (si cierra este terminal, no podrá recuperar la contraseña, por lo que es importante anotar los valores ahora; puede pegar la salida en un nuevo archivo de texto en Visual Studio Code para asegurarse de poder encontrar los valores que necesita más adelante).
 
-2. Para asignar permiso para que la nueva entidad de servicio acceda a los secretos en Key Vault, ejecute el siguiente comando de CLI de Azure y reemplace *&lt;keyVaultName&gt;* por el nombre del recurso de Azure Key Vault y *&lt;spName&gt;* por el mismo valor que proporcionó al crear la entidad de servicio.
+2. Para obtener el **id. de objeto** de la entidad de servicio, ejecute el siguiente comando de la CLI de Azure; reemplace *&lt;appId&gt;* por el valor del id. de aplicación de la entidad de servicio.
 
     ```
-    az keyvault set-policy -n <keyVaultName> --spn "api://<spName>" --secret-permissions get list
+    az ad sp show --id <appId> --query objectId --out tsv
+    ```
+
+3. Para asignar permiso a fin de que la nueva entidad de servicio acceda a los secretos en Key Vault, ejecute el siguiente comando de la CLI de Azure; reemplace *&lt;keyVaultName&gt;* por el nombre del recurso de Azure Key Vault y *&lt;objectId&gt;* por el valor del id. de objeto de la entidad de servicio.
+
+    ```
+    az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
     ```
 
 ### <a name="use-the-service-principal-in-an-application"></a>Uso de la entidad de servicio en una aplicación
 
-Ahora está listo para usar la identidad de la entidad de servicio en una aplicación, de modo que pueda acceder a la clave de Cognitive Services en el almacén de claves y usarla para conectarse al recurso de Cognitive Services.
+Ahora ya puede usar la identidad de la entidad de servicio en una aplicación, de modo que esta pueda acceder a la clave de Cognitive Services en el almacén de claves y usarla para conectarse al recurso de Cognitive Services.
 
 > **Nota**: En este ejercicio, almacenaremos las credenciales de la entidad de servicio en la configuración de la aplicación y las usaremos para autenticar una identidad **ClientSecretCredential** en el código de la aplicación. Esto está bien para desarrollo y pruebas, pero, en una aplicación de producción real, un administrador asignaría una *identidad administrada* a la aplicación para que use la identidad de la entidad de servicio para acceder a los recursos, sin almacenar en caché ni guardar la contraseña.
 
@@ -173,15 +179,15 @@ Ahora está listo para usar la identidad de la entidad de servicio en una aplica
     **C#**
 
     ```
-    dotnet add package Azure.AI.TextAnalytics --version 5.0.0
-    dotnet add package Azure.Identity --version 1.3.0
+    dotnet add package Azure.AI.TextAnalytics --version 5.1.0
+    dotnet add package Azure.Identity --version 1.5.0
     dotnet add package Azure.Security.KeyVault.Secrets --version 4.2.0-beta.3
     ```
 
     **Python**
 
     ```
-    pip install azure-ai-textanalytics==5.0.0
+    pip install azure-ai-textanalytics==5.1.0
     pip install azure-identity==1.5.0
     pip install azure-keyvault-secrets==4.2.0
     ```

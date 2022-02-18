@@ -2,12 +2,12 @@
 lab:
   title: Creación de una aptitud personalizada para Azure Cognitive Search
   module: Module 12 - Creating a Knowledge Mining Solution
-ms.openlocfilehash: 288b9badac3a3ec4d1461a5da14faa2e52143959
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: e09dbbc4fb72ae51e911f1440fd29d4917e50a6a
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625898"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801369"
 ---
 # <a name="create-a-custom-skill-for-azure-cognitive-search"></a>Creación de una aptitud personalizada para Azure Cognitive Search
 
@@ -20,8 +20,8 @@ En este ejercicio, creará una aptitud personalizada que tabula la frecuencia de
 Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
@@ -57,7 +57,7 @@ Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno e
     setup
     ```
 
-    > **Nota**: El módulo de la CLI de búsqueda está en versión preliminar y puede dejar de responder en el proceso *- En ejecución ..* . process. Si esto sucede durante más de dos minutos, presione Ctrl+C para cancelar la operación de ejecución larga y, a continuación, seleccione **N** cuando se le pregunte si desea finalizar el script. A continuación, debería completarse correctamente.
+    > **Nota**: El módulo de la CLI de búsqueda está en versión preliminar y puede dejar de responder en el proceso *- En ejecución ..* . . Si esto sucede durante más de dos minutos, presione Ctrl+C para cancelar la operación de ejecución larga y, a continuación, seleccione **N** cuando se le pregunte si desea finalizar el script. A continuación, debería completarse correctamente.
     >
     > Si se produce un error en el script, asegúrese de guardarlo con los nombres de variable correctos e inténtelo de nuevo.
 
@@ -109,7 +109,7 @@ En este ejercicio, usará la interfaz de REST de Azure Cognitive Search para cre
     *Puede encontrar estos valores en las páginas **Información general** y **Claves** del recurso de Azure Cognitive Search en Azure Portal.*
 
 13. Guarde el archivo por lotes actualizado.
-14. Haga clic con el botón derecho en la carpeta **create-search** y seleccione **Abrir en terminal integrado**.
+14. Haga clic con el botón derecho en la carpeta **create-search** y seleccione **Open in Integrated Terminal** (Abrir en terminal integrado).
 15. En el panel del terminal de la carpeta **create-search**, escriba el siguiente comando para ejecutar el script por lotes.
 
     ```
@@ -128,10 +128,10 @@ Ahora que tiene un índice, puede realizar búsquedas en él.
 2. En el Explorador de búsqueda, en el cuadro **Cadena de consulta**, escriba la siguiente cadena de consulta y, a continuación, seleccione **Buscar**.
 
     ```
-    search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment gt 0.5
+    search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment eq 'positive'
     ```
 
-    Esta consulta recupera los valores de **url**, **sentiment** y **keyphrases** de todos los documentos que mencionan *London* (Londres), cuyo autor es *Reviewer* (Revisor) y que tienen una puntuación de **opinión** superior a *0,5* (es decir, reseñas positivas que mencionan "London" [Londres]).
+    Esta consulta recupera los valores de **url**, **sentiment** y **keyphrases** de todos los documentos que mencionan *London* (Londres), cuyo autor es *Reviewer* (Revisor) y que tienen una etiqueta de **opinión** positiva (es decir, reseñas positivas que mencionan "London" [Londres]).
 
 ## <a name="create-an-azure-function-for-a-custom-skill"></a>Creación de una función de Azure para una aptitud personalizada
 

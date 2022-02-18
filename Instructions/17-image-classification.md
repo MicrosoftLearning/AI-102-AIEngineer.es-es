@@ -2,12 +2,12 @@
 lab:
   title: Clasificación de imágenes con Custom Vision
   module: Module 9 - Developing Custom Vision Solutions
-ms.openlocfilehash: bcc13ab51244348448c36cd38788263e7d32ba89
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: a8d60adee3e43ce0c613b71c7cba72067fe2b799
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625969"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801381"
 ---
 # <a name="classify-images-with-custom-vision"></a>Clasificación de imágenes con Custom Vision
 
@@ -33,19 +33,18 @@ Antes de poder entrenar un modelo, necesitará recursos de Azure para el *entren
 En este ejercicio, creará recursos de **Custom Vision** para entrenamiento y predicción para que pueda administrar el acceso y los costes de estas cargas de trabajo por separado.
 
 1. En una nueva pestaña del explorador, abra Azure Portal en `https://portal.azure.com` e inicie sesión con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. Seleccione el botón **&#65291;Crear un recurso**, busque *Custom Vision* y cree un recurso de **Custom Vision** con esta configuración:
+2. Seleccione el botón **&#65291;Crear un recurso**, busque *Custom Vision* y cree un recurso de **Custom Vision** con la siguiente configuración:
     - **Opciones de creación**: ambas
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
+    - **Región**: *elija cualquier región disponible*
     - **Nombre**: *escriba un nombre único*
-    - **Ubicación del entrenamiento**: *elija cualquier región disponible*
     - **Plan de tarifa de entrenamiento**: F0
-    - **Ubicación de la predicción**: *la misma región del recurso de entrenamiento*
     - **Plan de tarifa de predicción**: F0
 
-    > **Nota**: Si ya tiene un servicio Custom Vision F0 en su suscripción, seleccione **S0** en este caso.
+    > **Nota**: Si ya tiene un servicio Custom Vision F0 en su suscripción, seleccione **S0** en este caso.
 
-3. Espere a que se creen los recursos, consulte los detalles de la implementación y verá que se aprovisionan dos recursos de Custom Vision, uno para el entrenamiento y otro para la predicción. Para ver estos recursos, vaya al grupo de recursos en el que los creó.
+3. Espere a que se creen los recursos, consulte los detalles de la implementación y observe que se aprovisionan dos recursos de Custom Vision, uno para el entrenamiento y otro para la predicción (evidente por el sufijo **-Prediction**). Para ver estos recursos, vaya al grupo de recursos en el que los creó.
 
 > **Importante**: Cada recurso tiene su propio *punto de conexión* y sus *claves*, que se usan para administrar el acceso desde el código. Para entrenar un modelo de clasificación de imágenes, el código debe usar el recurso de *entrenamiento* (con su punto de conexión y su clave); y para usar el modelo entrenado para predecir clases de imágenes, el código debe usar el recurso de *predicción* (con su punto de conexión y su clave).
 
@@ -88,13 +87,13 @@ Ahora que ha entrenado el modelo, puede probarlo.
 
 4. Cierre la ventana **Quick Test**.
 
-## <a name="view-the-project-settings"></a>Visualización de la configuración del proyecto
+## <a name="view-the-project-settings"></a>Vea la configuración del proyecto
 
 Al proyecto que ha creado se le ha asignado un identificador único, que deberá especificar en cualquier código que interactúe con él.
 
 1. Haga clic en el icono *Configuración* (⚙) en la esquina superior derecha de la página **Rendimiento** para ver la configuración del proyecto.
 2. En **General** (a la izquierda), anote el **identificador de proyecto** que identifica de forma única este proyecto.
-3. A la derecha, en **Recursos**, fíjese en que se muestran los detalles del recurso de *entrenamiento*, incluida su clave y punto de conexión (también puede obtener esta información viendo el recurso en Azure Portal).
+3. A la derecha, en **Recursos**, observe que se muestran la clave y el punto de conexión. Estos son los detalles del recurso de *entrenamiento*. También puede obtener esta información viendo el recurso en Azure Portal.
 
 ## <a name="use-the-training-api"></a>Uso de la API de *entrenamiento*
 
@@ -121,14 +120,14 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
     - **C#** : appsettings.json
     - **Python**: .env
 
-    Abra el archivo de configuración y actualice los valores de configuración que contiene para reflejar el punto de conexión y la clave del recurso de *entrenamiento* de Custom Vision, así como el id. del proyecto de clasificación creado anteriormente. Guarde los cambios.
+    Abra el archivo de configuración y actualice los valores de configuración que contiene para reflejar el punto de conexión y la clave del recurso de *entrenamiento* de Custom Vision, así como el id. del proyecto de clasificación que creó anteriormente. Guarde los cambios.
 4. Tenga en cuenta que la carpeta **train-classifier** contiene un archivo de código para la aplicación cliente:
 
     - **C#** : Program.cs
     - **Python**: train-classifier.py
 
     Abra el archivo de código y revise el código que contiene, fijándose en los siguientes detalles:
-    - Se importan los espacios de nombres del paquete instalado
+    - Se importan los espacios de nombres del paquete instalado.
     - La función **Main** recupera los valores de configuración y usa la clave y el punto de conexión para crear un **CustomVisionTrainingClient** autenticado, que luego se usa con el identificador del proyecto para crear una referencia **Project** al proyecto.
     - La función **Upload_Images** recupera las etiquetas que se definen en el proyecto de Custom Vision y, a continuación, carga los archivos de imagen de las carpetas indicadas correspondientes al proyecto, asignando el identificador de etiqueta adecuado.
     - La función **Train_Model** crea una nueva iteración de entrenamiento para el proyecto y espera a que se complete el entrenamiento.
@@ -155,9 +154,9 @@ Ya puede publicar su modelo entrenado para poder usarlo desde una aplicación cl
 
 1. En el portal de Custom Vision, en la página **Rendimiento**, haga clic en **&#128504; Publicar** para publicar el modelo entrenado con la siguiente configuración:
     - **Nombre del modelo**: fruit-classifier
-    - **Recurso de predicción**: *el recurso de **predicción** creado anteriormente (<u>no</u> el recurso de entrenamiento)* .
-2. En la parte superior izquierda de la página **Project Settings**, haga clic en el icono *Projects Gallery* (&#128065;) para volver a la página principal del portal de Custom Vision, donde debería aparecer su proyecto.
-3. En la página principal del portal de Custom Vision, en la esquina superior derecha, haga clic en el icono de *configuración* (&#9881;) para ver la configuración de su servicio Custom Vision. A continuación, en **Recursos**, busque el recurso de *predicción* (<u>no</u> el recurso de entrenamiento) para determinar sus valores de **Clave** y **Punto de conexión** (también puede consultar el recurso en Azure Portal para obtener esta información).
+    - **Recurso de predicción**: *el recurso de **predicción** creado anteriormente que termina en -Prediction (<u>no</u> el recurso de entrenamiento)* .
+2. En la parte superior izquierda de la página **Configuración del proyecto**, haga clic en el icono *Projects Gallery* (Galería de proyectos) (&#128065;) para volver a la página principal del portal de Custom Vision, donde debería aparecer su proyecto.
+3. En la página principal del portal de Custom Vision, en la esquina superior derecha, haga clic en el icono de *configuración* (&#9881;) para ver la configuración de su servicio Custom Vision. A continuación, en **Recursos**, busque el recurso de *predicción* que termina en -Prediction (<u>no</u> el recurso de entrenamiento) para determinar sus valores de **Clave** y **Punto de conexión**. También puede consultar el recurso en Azure Portal para obtener esta información.
 
 ## <a name="use-the-image-classifier-from-a-client-application"></a>Uso del clasificador de imágenes desde una aplicación cliente
 

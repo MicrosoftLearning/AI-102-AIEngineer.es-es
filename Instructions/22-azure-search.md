@@ -2,12 +2,12 @@
 lab:
   title: Creación de una solución de Azure Cognitive Search
   module: Module 12 - Creating a Knowledge Mining Solution
-ms.openlocfilehash: 38d5d50ba7e906ee0842a076ec08ad1e92d10293
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: bba5786ed34cbbe806c74e2b2eec6286cb92554b
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625914"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801378"
 ---
 # <a name="create-an-azure-cognitive-search-solution"></a>Creación de una solución de Azure Cognitive Search
 
@@ -19,11 +19,11 @@ Para abordar este desafío, Margie's Travel puede usar Azure Cognitive Search pa
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
+Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
@@ -111,7 +111,7 @@ Ahora que tiene los documentos en su lugar, puede indexarlos para crear una solu
     - **Datos que se extraerán**: contenido y metadatos
     - **Modo de análisis**: predeterminado
     - **Cadena de conexión**: *seleccione **Elegir una conexión existente**. A continuación, seleccione la cuenta de almacenamiento y, por último, seleccione el contenedor **margies** creado mediante el script UploadDocs.cmd.*
-    - **Autenticar mediante identidad administrada**: no seleccionado
+    - **Autenticación de identidad administrada**: ninguna
     - **Nombre del contenedor**: margies
     - **Carpeta de blobs**: *dejar en blanco*
     - **Descripción**: folletos y revisiones en el sitio web de Margie's Travel
@@ -134,7 +134,7 @@ Ahora que tiene los documentos en su lugar, puede indexarlos para crear una solu
 
 6. Compruebe las selecciones (puede ser difícil cambiarlas más adelante). A continuación, proceda con el siguiente paso (*Personalización del índice de destino*).
 7. Cambie el **Nombre del índice** a **margies-index**.
-8. Asegúrese de que el valor de **Clave** está establecido en **metadata_storage_path** y deje en blanco los campos **Nombre del proveedor de sugerencias** y **Modo de búsqueda**.
+8. Asegúrese de que el valor de **Clave** está establecido en **metadata_storage_path**. Deje en blanco el campo **Nombre del proveedor de sugerencias**; el campo **Modo de búsqueda** debe quedar con el valor predeterminado.
 9. Realice los siguientes cambios en los campos de índice y deje todos los demás campos con su configuración predeterminada (**IMPORTANTE**: es posible que tenga que desplazarse a la derecha para ver toda la tabla):
 
     | Nombre del campo | Retrievable | Filtrable | Ordenable | Clasificable | Buscable |
@@ -219,7 +219,7 @@ Aunque puede usar el portal para crear y modificar las soluciones de búsqueda, 
 
     ```
     {
-        "@odata.type": "#Microsoft.Skills.Text.SentimentSkill",
+        "@odata.type": "#Microsoft.Skills.Text.V3.SentimentSkill",
         "defaultLanguageCode": "en",
         "name": "get-sentiment",
         "description": "New skill to evaluate sentiment",
@@ -236,14 +236,14 @@ Aunque puede usar el portal para crear y modificar las soluciones de búsqueda, 
         ],
         "outputs": [
             {
-                "name": "score",
-                "targetName": "sentimentScore"
+                "name": "sentiment",
+                "targetName": "sentimentLabel"
             }
         ]
     }
     ```
 
-La nueva aptitud se denomina **get-sentiment** y, para cada nivel de **documento** de un documento, evaluará el texto que se encuentre en el campo **merged_content** del documento que se está indexando (que incluye el contenido de origen, así como cualquier texto extraído de las imágenes del contenido). Usa el **idioma** extraído del documento (con un valor predeterminado de inglés) y evalúa una puntuación de la opinión del contenido. A continuación, esta puntuación se genera como un nuevo campo denominado **sentimentScore**.
+La nueva aptitud se denomina **get-sentiment** y, para cada nivel de **documento** de un documento, evaluará el texto que se encuentre en el campo **merged_content** del documento que se está indexando (que incluye el contenido de origen, así como cualquier texto extraído de las imágenes del contenido). Usa el **idioma** extraído del documento (el valor predeterminado es el inglés) y evalúa una etiqueta de la opinión del contenido. Los valores de la etiqueta de opinión pueden ser "positive", "negative", "neutral" o "mixed". A continuación, esta etiqueta se genera como un nuevo campo denominado **sentimentLabel**.
 
 6. Guarde los cambios realizados en **skillset.json**.
 
@@ -256,7 +256,7 @@ La nueva aptitud se denomina **get-sentiment** y, para cada nivel de **documento
     ```
     {
         "name": "sentiment",
-        "type": "Edm.Double",
+        "type": "Edm.String",
         "facetable": false,
         "filterable": true,
         "retrievable": true,
@@ -290,11 +290,11 @@ La nueva aptitud se denomina **get-sentiment** y, para cada nivel de **documento
 
 Todos los demás campos de contenido y metadatos del documento de origen se asignan de forma implícita a campos con el mismo nombre en el índice.
 
-4. Revise la sección **ouputFieldMappings**, que asigna las salidas de las aptitudes del conjunto de aptitudes a los campos del índice. La mayoría de ellas reflejan las opciones seleccionadas en la interfaz de usuario, pero se ha agregado la siguiente asignación para asignar el valor de **sentimentScore** extraído mediante la aptitud de opinión al campo **sentiment** que agregó al índice:
+4. Revise la sección **ouputFieldMappings**, que asigna las salidas de las aptitudes del conjunto de aptitudes a los campos del índice. La mayoría de ellas reflejan las opciones seleccionadas en la interfaz de usuario, pero se ha agregado la siguiente asignación para asignar el valor de **sentimentLabel** extraído mediante la aptitud de opinión al campo **sentiment** que agregó al índice:
 
     ```
     {
-        "sourceFieldName": "/document/sentimentScore",
+        "sourceFieldName": "/document/sentimentLabel",
         "targetFieldName": "sentiment"
     }
     ```
@@ -318,10 +318,10 @@ Todos los demás campos de contenido y metadatos del documento de origen se asig
 2. En el Explorador de búsqueda, en el cuadro **Cadena de consulta**, escriba la siguiente cadena de consulta y, a continuación, seleccione **Buscar**.
 
     ```
-    search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment gt 0.5
+    search=London&$select=url,sentiment,keyphrases&$filter=metadata_author eq 'Reviewer' and sentiment eq 'positive'
     ```
 
-    Esta consulta recupera los valores de **url**, **sentiment** y **keyphrases** de todos los documentos que mencionan *London* (Londres), cuyo autor es *Reviewer* (Revisor) y que tienen una puntuación de **opinión** superior a *0,5* (es decir, reseñas positivas que mencionan "London" [Londres]).
+    Esta consulta recupera los valores de **url**, **sentiment** y **keyphrases** de todos los documentos que mencionan *London*, cuyo autor es *Reviewer* y que tienen una etiqueta de **opinión** positiva (es decir, reseñas positivas que mencionan "London").
 
 3. Cierre la página **Explorador de búsqueda** para volver a la página **Información general**.
 
@@ -396,7 +396,7 @@ La aplicación web ya incluye código para procesar y representar los resultados
         - Se muestra el campo **metadata_storage_name** (nombre de archivo) como un vínculo a la dirección del campo **url**.
         - Se muestra la *información destacada* de los términos de búsqueda que se encuentran en los campos **merged_content** e **imageCaption** para ayudar a mostrar los términos de búsqueda en contexto.
         - Se muestran los campos **metadata_author**, **metadata_storage_size**, **metadata_storage_last_modified** y **language**.
-        - Se indica la **opinión** mediante un emoticono (&#128578; para las puntuaciones iguales o mayores que 0,5 y &#128577; para las puntuaciones inferiores a 0,5).
+        - Muestra la etiqueta de **opinión** del documento. Puede ser positiva, negativa, neutra o mixta.
         - Se muestran los cinco primeros valores de **keyphrases** (si los hay).
         - Se muestran los cinco primeros valores de **locations** (si los hay).
         - Se muestran los cinco primeros valores de **imageTags** (si los hay).
@@ -424,7 +424,7 @@ La aplicación web ya incluye código para procesar y representar los resultados
     - Un *filtro* basado en un valor de faceta para el campo **metadata_author**. Muestra cómo puede usar campos *clasificables* para devolver una lista de *facetas*, que son campos con un pequeño conjunto de valores discretos que se pueden mostrar como posibles valores de filtro en la interfaz de usuario.
     - La capacidad de *ordenar* los resultados en función de un campo y una dirección de ordenación especificados (ascendente o descendente). El orden predeterminado se basa en la *relevancia*, que se calcula como un valor de **search.score()** basado en un *perfil de puntuación* que evalúa la frecuencia y la importancia de los términos de búsqueda en los campos de índice.
 6. Seleccione el filtro **Reviewer** (Revisor) y la opción de ordenación **Positive to negative** (De positivo a negativo) y, a continuación, seleccione **Mejorar los resultados**.
-7. Observe que los resultados se filtran para incluir solo las revisiones y se ordenan en orden descendente según la opinión.
+7. Observe que los resultados se filtran para incluir solo revisiones y se ordenan en función de la etiqueta de opinión.
 8. En el cuadro de **búsqueda**, escriba una nueva búsqueda de **quiet hotel in New York** (hotel silencioso en Nueva York) y revise los resultados.
 9. Pruebe los siguientes términos de búsqueda:
     - **Tower of London** (Torre de Londres): observe que este término se identifica como una *frase clave* en algunos documentos.

@@ -2,18 +2,18 @@
 lab:
   title: Análisis de texto
   module: Module 3 - Getting Started with Natural Language Processing
-ms.openlocfilehash: eb4e413e64c322f182cd5eadaff56bb880636e2f
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 27cd22e81d4fe8fda27e6fc960d3b3aeb8debded
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625993"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801330"
 ---
 # <a name="analyze-text"></a>Análisis de texto
 
-**Text Analytics API** es un servicio de Cognitive Services que admite el análisis de texto, que incluye la detección del idioma, el análisis de sentimiento, la extracción de frases clave y el reconocimiento de entidades.
+El servicio de **lenguaje** forma parte de Cognitive Services y permite el análisis de texto, que incluye la detección del idioma, el análisis de sentimiento, la extracción de frases clave y el reconocimiento de entidades.
 
-Por ejemplo, supongamos que una agencia de viajes quiere procesar las reseñas de hoteles que se han enviado al sitio web de la empresa. Mediante Text Analytics API, la agencia puede determinar el idioma en el que se ha escrito cada reseña, la opinión (positiva, neutra o negativa) de las reseñas, las frases clave que podrían indicar los temas principales que se tratan en la reseña y las entidades con nombre, como lugares, puntos de referencia o personas mencionadas en las reseñas.
+Por ejemplo, supongamos que una agencia de viajes quiere procesar las reseñas de hoteles que se han enviado al sitio web de la empresa. Mediante el servicio de lenguaje, la agencia puede determinar el idioma en el que se ha escrito cada reseña, la opinión (positiva, neutra o negativa) de las reseñas, las frases clave que podrían indicar los temas principales que se tratan en la reseña y las entidades con nombre, como lugares, puntos de referencia o personas mencionadas en las reseñas.
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
@@ -28,7 +28,7 @@ Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el ento
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -38,12 +38,12 @@ Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de 
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
+4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
-## <a name="prepare-to-use-the-text-analytics-sdk"></a>Preparación para usar el SDK de Text Analytics
+## <a name="prepare-to-use-the-language-sdk-for-text-analytics"></a>Preparación del uso del SDK de lenguaje para el análisis de texto
 
-En este ejercicio, completará una aplicación cliente parcialmente implementada que usa el SDK de Text Analytics para analizar reseñas de hoteles.
+En este ejercicio, completará una aplicación cliente parcialmente implementada que usa el SDK de análisis de texto del servicio de lenguaje para analizar reseñas de hoteles.
 
 > **Nota**: Puede elegir usar el SDK para **C#** o **Python**. En los pasos siguientes, realice las acciones adecuadas para su lenguaje preferido.
 
@@ -53,13 +53,13 @@ En este ejercicio, completará una aplicación cliente parcialmente implementada
     **C#**
     
     ```
-    dotnet add package Azure.AI.TextAnalytics --version 5.0.0
+    dotnet add package Azure.AI.TextAnalytics --version 5.1.0
     ```
     
     **Python**
     
     ```
-    pip install azure-ai-textanalytics==5.0.0
+    pip install azure-ai-textanalytics==5.1.0
     ```
     
 3. Consulte el contenido de la carpeta **text-analysis** y observe que contiene un archivo para las opciones de configuración:
@@ -350,4 +350,4 @@ Además de las entidades clasificadas, Text Analytics API puede detectar entidad
 
 ## <a name="more-information"></a>Más información
 
-Para obtener más información sobre el servicio **Text Analytics**, consulte la [documentación de Text Analytics](https://docs.microsoft.com/azure/cognitive-services/text-analytics/).
+Para obtener más información sobre el servicio de **lenguaje**, consulte la [documentación de Text Analytics](https://docs.microsoft.com/azure/cognitive-services/language-service/).

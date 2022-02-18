@@ -2,12 +2,12 @@
 lab:
   title: Extracción de datos de formularios
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 6d2d43675faaa37f2123ff64ab7e8856007fe314
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: e2181d06b7dbf14bb5ea2a850eeb39d80a575f61
+ms.sourcegitcommit: 254d3fe43a77d925ba3bfb81daae737ec8203bfa
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625881"
+ms.lasthandoff: 12/07/2021
+ms.locfileid: "133893549"
 ---
 # <a name="extract-data-from-forms"></a>Extracción de datos de formularios 
 
@@ -20,8 +20,8 @@ Supongamos que una empresa necesita automatizar un proceso de entrada de datos. 
 Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (MAYÚS+CTRL+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
@@ -104,7 +104,7 @@ setup
 
 > **Importante**: Antes de seguir, pegue el URI de SAS en algún lugar donde pueda recuperarlo más adelante (por ejemplo, en un nuevo archivo de texto en Visual Studio Code).
 
-15. En Azure Portal, actualice el grupo de recursos y compruebe que contiene la cuenta de Azure Storage que acaba de crear. Abra la cuenta de almacenamiento y, en el panel de la izquierda, seleccione **Explorador de Storage**. A continuación, en el Explorador de Storage, expanda **Contenedores de blobs** y seleccione el contenedor **sampleforms** para comprobar que los archivos se han cargado desde la carpeta local **21-custom-form/sample-forms**.
+15. En Azure Portal, actualice el grupo de recursos y compruebe que contiene la cuenta de Azure Storage que acaba de crear. Abra la cuenta de almacenamiento y, en el panel de la izquierda, seleccione **Explorador de almacenamiento (versión preliminar)** . A continuación, en el Explorador de almacenamiento, expanda **CONTENEDORES DE BLOBS** y seleccione el contenedor **sampleforms** para comprobar que los archivos se hayan cargado desde la carpeta local **21-custom-form/sample-forms**.
 
 ## <a name="train-a-model-without-labels"></a>Entrenamiento de un modelo *sin* etiquetas
 

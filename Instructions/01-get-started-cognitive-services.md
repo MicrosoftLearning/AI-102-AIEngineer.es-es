@@ -2,12 +2,12 @@
 lab:
   title: Introducción a Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 184092faafa5e4a138bd9d9cc07f253110f7d8c3
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 4baba38b03c6d7bb5fe04fa5e73bb606e970550b
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625893"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801357"
 ---
 # <a name="get-started-with-cognitive-services"></a>Introducción a Cognitive Services
 
@@ -15,18 +15,18 @@ En este ejercicio, podrá empezar a trabajar con Cognitive Services mediante la 
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
+Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Azure Cognitive Services son servicios basados en la nube que encapsulan funcionalidades de inteligencia artificial que se pueden incorporar a las aplicaciones. Puede aprovisionar recursos individuales de Cognitive Services para API específicas (por ejemplo, **Text Analytics** o **Computer Vision**), o puede aprovisionar un recurso general de **Cognitive Services** que proporcione acceso a varias Cognitive Services APIs a través de una clave y punto de conexión únicos. En este caso, usará un único recurso de **Cognitive Services**.
+Azure Cognitive Services son servicios basados en la nube que encapsulan funcionalidades de inteligencia artificial que se pueden incorporar a las aplicaciones. Puede aprovisionar recursos individuales de Cognitive Services para API específicas (por ejemplo, **Language** o **Computer Vision**). También puede aprovisionar un recurso general de **Cognitive Services** que proporcione acceso a varias API de Cognitive Services mediante una clave y punto de conexión únicos. En este caso, usará un único recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -44,7 +44,7 @@ Azure Cognitive Services son servicios basados en la nube que encapsulan funcion
 
 ## <a name="use-a-rest-interface"></a>Uso de la interfaz de REST
 
-Las Cognitive Services APIs se basan en REST, por lo que se pueden consumir mediante el envío de solicitudes JSON mediante HTTP. En este ejemplo, explorará una aplicación de consola que usa la API de REST **Text Analytics** para realizar la detección de idioma, pero el principio básico es el mismo para todas las API que admite el recurso de Cognitive Services.
+Las Cognitive Services APIs se basan en REST, por lo que se pueden consumir mediante el envío de solicitudes JSON mediante HTTP. En este ejemplo, explorará una aplicación de consola que usa la API de REST **Language** para realizar la detección de idioma, pero el principio básico es el mismo para todas las API que admite el recurso de Cognitive Services.
 
 > **Nota**: En este ejercicio, puede elegir usar la API de REST de **C#** o **Python**. En los pasos siguientes, realice las acciones adecuadas para su lenguaje preferido.
 
@@ -93,13 +93,13 @@ Puede escribir código que consuma las API de REST de Cognitive Services directa
     **C#**
 
     ```
-    dotnet add package Azure.AI.TextAnalytics --version 5.0.0
+    dotnet add package Azure.AI.TextAnalytics --version 5.1.0
     ```
 
     **Python**
 
     ```
-    pip install azure-ai-textanalytics==5.0.0
+    pip install azure-ai-textanalytics==5.1.0
     ```
 
 3. Consulte el contenido de la carpeta **sdk-client** y fíjese en que contiene un archivo para los valores de configuración:

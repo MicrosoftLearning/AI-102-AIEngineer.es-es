@@ -2,12 +2,12 @@
 lab:
   title: Supervisión de Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: caf885516acab74cff46d3a4f807ee98aed446a3
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: e0e0042421a4f7150fc3b95cef80887c81a78f3a
+ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625885"
+ms.lasthandoff: 01/12/2022
+ms.locfileid: "135801339"
 ---
 # <a name="monitor-cognitive-services"></a>Supervisión de Cognitive Services
 
@@ -15,18 +15,18 @@ Azure Cognitive Services puede ser una parte fundamental de una infraestructura 
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
+Si ya ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, ábralo en Visual Studio Code; en caso contrario, siga estos pasos para clonarlo ahora.
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -46,12 +46,14 @@ Vamos a empezar la supervisión mediante la definición de una regla de alertas 
 1. En Azure Portal, vaya al recurso de Cognitive Services y consulte su página **Alertas** (en la sección **Supervisión**).
 2. Seleccione **Nueva regla de alertas**.
 3. En la página **Crear regla de alertas**, en **Ámbito**, compruebe que aparece el recurso de Cognitive Services.
-4. En **Condición**, haga clic en **Agregar condición** y vea el panel **Configurar lógica de señal** que aparece a la derecha, donde puede seleccionar un tipo de señal para supervisar.
+4. En **Condición**, haga clic en **Agregar condición** y vea el panel **Seleccionar una señal** que aparece a la derecha, donde puede seleccionar un tipo de señal para supervisar.
 5. En la lista **Tipo de señal**, seleccione **Registro de actividad** y, a continuación, en a lista filtrada, seleccione **Enumerar claves**.
-6. Revise la actividad durante las últimas 6 horas y, a continuación, seleccione **Listo**.
-7. De nuevo en el panel **Crear regla de alertas**, en **Acciones**, observe que puede especificar un *grupo de acciones*. Esto le permite configurar acciones automatizadas cuando se desencadena una alerta (por ejemplo, enviar una notificación por correo electrónico). No lo haremos en este ejercicio; pero puede ser útil en un entorno de producción.
-8. En la sección **Alert Rules Details** (Detalles de reglas de alertas), establezca **Nombre de la regla de alertas** en **Key List Alert (Alerta de la lista de claves)** y haga clic en **Crear regla de alertas**. Espere a que se cree la regla de alertas.
-9. En Visual Studio Code, haga clic con el botón derecho en la carpeta **03-monitor** y abra un terminal integrado. A continuación, escriba el siguiente comando para iniciar sesión en su suscripción de Azure mediante la CLI de Azure.
+6. Revise la actividad de las últimas 6 horas.
+7. Seleccione la pestaña **Acciones**. Tenga en cuenta que puede especificar un *grupo de acciones*. Esto le permite configurar acciones automatizadas cuando se desencadena una alerta (por ejemplo, enviar una notificación por correo electrónico). No lo haremos en este ejercicio; pero puede ser útil en un entorno de producción.
+8. En la pestaña **Detalles**, establezca el **nombre de la regla de alerta** en **Alerta de lista de claves**.
+9. Seleccione **Revisar + crear**. 
+10. Revise la configuración de la alerta. Seleccione **Crear** y espere a que se cree la regla de alerta.
+11. En Visual Studio Code, haga clic con el botón derecho en la carpeta **03-monitor** y abra un terminal integrado. A continuación, escriba el siguiente comando para iniciar sesión en su suscripción de Azure mediante la CLI de Azure.
 
     ```
     az login
@@ -79,7 +81,7 @@ Vamos a empezar la supervisión mediante la definición de una regla de alertas 
 
 El comando devuelve una lista de las claves del recurso de Cognitive Services.
 
-11. Vuelva al explorador que contiene Azure Portal y actualice la página **Alerta**. Debería ver una alerta de **Gravedad 4** en la tabla (si no es así, espere hasta cinco minutos y vuelva a actualizar).
+11. Vuelva al explorador con Azure Portal y actualice la **página Alertas**. Debería ver una alerta de **Gravedad 4** en la tabla (si no es así, espere hasta cinco minutos y vuelva a actualizar).
 12. Seleccione una alerta para ver sus detalles.
 
 ## <a name="visualize-a-metric"></a>Visualización de una métrica
@@ -92,7 +94,7 @@ Además de definir alertas, puede ver las métricas del recurso de Cognitive Ser
 4. Para generar algunas solicitudes para Cognitive Service, usará **curl**, una herramienta de línea de comandos para las solicitudes HTTP. En Visual Studio Code, en la carpeta **03-monitor**, abra **rest-test.cmd** y edite el comando **curl** que contiene (que se muestra a continuación), reemplazando *&lt;yourEndpoint&gt;* y *&lt;yourKey&gt;* por el URI del punto de conexión y la clave **Key1** para usar la API de Text Analytics en el recurso de Cognitive Services.
 
     ```
-    curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':           [{'id':1,'text':'hello'}]}"
+    curl -X POST "<yourEndpoint>/text/analytics/v3.1/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':           [{'id':1,'text':'hello'}]}"
     ```
 
 5. Guarde los cambios y, a continuación, en el terminal integrado de la carpeta **03-monitor**, ejecute el siguiente comando:
