@@ -2,12 +2,12 @@
 lab:
   title: Reconocimiento y síntesis de voz
   module: Module 4 - Building Speech-Enabled Applications
-ms.openlocfilehash: 9867905b0189fa5932dba02cd0815817171e4928
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: 4f65f068cab76299f838153d32a2d4e8979a1253
+ms.sourcegitcommit: 3374bf6b03869daf624f3916bc34510fcbe580e0
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "135801360"
+ms.lasthandoff: 02/18/2022
+ms.locfileid: "139088442"
 ---
 # <a name="recognize-and-synthesize-speech"></a>Reconocimiento y síntesis de voz
 
@@ -43,7 +43,7 @@ Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Co
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
+4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará una de las claves y la ubicación en la que se aprovisiona el servicio desde esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-speech-service"></a>Preparación para usar el servicio Voz
@@ -350,7 +350,7 @@ La aplicación de reloj de voz usa una voz predeterminada, que se puede cambiar.
 
     ```C#
     // Configure speech synthesis
-    speechConfig.SpeechSynthesisVoiceName = "en-GB-LibbyNeural"; // add this
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-LibbyNeural"; // change this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -358,7 +358,7 @@ La aplicación de reloj de voz usa una voz predeterminada, que se puede cambiar.
     
     ```Python
     # Configure speech synthesis
-    speech_config.speech_synthesis_voice_name = 'en-GB-LibbyNeural' # add this
+    speech_config.speech_synthesis_voice_name = 'en-GB-LibbyNeural' # change this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
