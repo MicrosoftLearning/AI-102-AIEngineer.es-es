@@ -2,12 +2,12 @@
 lab:
   title: Extracción de datos de formularios
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: e2181d06b7dbf14bb5ea2a850eeb39d80a575f61
-ms.sourcegitcommit: 254d3fe43a77d925ba3bfb81daae737ec8203bfa
+ms.openlocfilehash: 99d450eb777229f573de9a7231c773e3c103efd9
+ms.sourcegitcommit: 1807a2fd95d9818d27b8c34c0ad041d844eea806
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 12/07/2021
-ms.locfileid: "133893549"
+ms.lasthandoff: 03/08/2022
+ms.locfileid: "139548576"
 ---
 # <a name="extract-data-from-forms"></a>Extracción de datos de formularios 
 
@@ -285,7 +285,7 @@ python test-model.py
     
 3. Mire la salida y observe cómo la salida del modelo entrenado **con** etiquetas proporciona nombres de campo como "CompanyPhoneNumber" y "DatedAs", a diferencia de la salida del modelo entrenado **sin** etiquetas, que produjo una salida de field-1, field-2, etc.  
 
-Aunque el código del programa para entrenar un modelo _con_ etiquetas puede no diferir en mucho del código para el entrenamiento _sin_ etiquetas, elegir uno frente a otro _cambia_ las necesidades de planeamiento del proyecto. Para entrenar con etiquetas, deberá [crear los archivos etiquetados](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool?tabs=v2-0). La elección del proceso de entrenamiento también puede generar modelos diferentes, lo que a su vez puede afectar a los procesos de bajada en función de los campos que devuelve el modelo y de la confianza que tiene con los valores devueltos. 
+Aunque el código del programa para entrenar un modelo _con_ etiquetas puede no diferir en mucho del código para el entrenamiento _sin_ etiquetas, elegir uno frente a otro _cambia_ las necesidades de planeamiento del proyecto. Para entrenar con etiquetas, deberá [crear los archivos etiquetados](https://docs.microsoft.com/azure/applied-ai-services/form-recognizer/quickstarts/try-sample-label-tool). La elección del proceso de entrenamiento también puede generar modelos diferentes, lo que a su vez puede afectar a los procesos de bajada en función de los campos que devuelve el modelo y de la confianza que tiene con los valores devueltos. 
 
 ## <a name="more-information"></a>Más información
 
