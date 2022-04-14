@@ -2,12 +2,12 @@
 lab:
   title: Uso de contenedores de Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: c222f5526a09ee1ae2aad3732fe2e29eb14c12ef
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: 3c9e51562e4fb93809855e3ae8707d6aeaf83c97
+ms.sourcegitcommit: e9fc70625e09e4f4585a08e1668597f5d82616a0
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "135801342"
+ms.lasthandoff: 04/11/2022
+ms.locfileid: "141605467"
 ---
 # <a name="use-a-cognitive-services-container"></a>Uso de contenedores de Cognitive Services
 
@@ -39,7 +39,7 @@ Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Co
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
 4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
-5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
+5. Cuando se haya implementado el recurso, vaya a él y vea su página **Keys and Endpoint** (Claves y punto de conexión). Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
 ## <a name="deploy-and-run-a-text-analytics-container"></a>Implementación y ejecución de un contenedor de Text Analytics
 
@@ -53,7 +53,6 @@ Muchas API de Cognitive Services de uso frecuente están disponibles en imágene
         - **Nombre de contenedor**: *escriba un nombre único*.
         - **Región**: *elija cualquier región disponible*
         - **Origen de imagen**: Docker Hub u otro registro
-        - **Tipo de imagen**: pública
         - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
         - **Tipo de SO**: Linux
         - **Tamaño**: 1 vcpu, 4 GB de memoria
