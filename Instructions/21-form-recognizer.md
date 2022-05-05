@@ -2,12 +2,12 @@
 lab:
   title: Extracción de datos de formularios
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 99d450eb777229f573de9a7231c773e3c103efd9
-ms.sourcegitcommit: 1807a2fd95d9818d27b8c34c0ad041d844eea806
+ms.openlocfilehash: 45915cfcb832635b668d9b22da931c2b467c7452
+ms.sourcegitcommit: 29a684646784fe4f7370343b6c005728a953770d
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 03/08/2022
-ms.locfileid: "139548576"
+ms.lasthandoff: 05/04/2022
+ms.locfileid: "144557837"
 ---
 # <a name="extract-data-from-forms"></a>Extracción de datos de formularios 
 
@@ -45,7 +45,7 @@ Para usar el servicio Form Recognizer, debe crear un recurso de Form Recognizer 
 
 ## <a name="gather-documents-for-training"></a>Recopilación de documentos para el entrenamiento
 
-![Imagen de una factura.](../21-custom-form/sample-forms/Form_1.jpg)  
+![Imagen de una factura.](../21-custom-form/sample-forms/Form_1.png)  
 
 Usará los formularios de ejemplo de la carpeta **21-custom-form/sample-forms** de este repositorio, que contienen todos los archivos que necesitará para entrenar un modelo sin etiquetas y otro modelo con etiquetas.
 
