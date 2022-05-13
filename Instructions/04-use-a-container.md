@@ -2,12 +2,12 @@
 lab:
   title: Uso de contenedores de Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 3c9e51562e4fb93809855e3ae8707d6aeaf83c97
-ms.sourcegitcommit: e9fc70625e09e4f4585a08e1668597f5d82616a0
+ms.openlocfilehash: 244ab1ef3754e668d64996dece9711682651691d
+ms.sourcegitcommit: 29a684646784fe4f7370343b6c005728a953770d
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 04/11/2022
-ms.locfileid: "141605467"
+ms.lasthandoff: 05/04/2022
+ms.locfileid: "144557844"
 ---
 # <a name="use-a-cognitive-services-container"></a>Uso de contenedores de Cognitive Services
 
@@ -52,7 +52,8 @@ Muchas API de Cognitive Services de uso frecuente están disponibles en imágene
         - **Grupo de recursos**: *elija el grupo de recursos que contiene el recurso de Cognitive Services*.
         - **Nombre de contenedor**: *escriba un nombre único*.
         - **Región**: *elija cualquier región disponible*
-        - **Origen de imagen**: Docker Hub u otro registro
+        - **Origen de imagen:** Otro registro
+        - **Tipo de imagen**: pública
         - **Imagen**: `mcr.microsoft.com/azure-cognitive-services/textanalytics/language:1.1.013570001-amd64`
         - **Tipo de SO**: Linux
         - **Tamaño**: 1 vcpu, 4 GB de memoria
