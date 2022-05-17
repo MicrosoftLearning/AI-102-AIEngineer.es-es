@@ -2,12 +2,12 @@
 lab:
   title: Creación de una solución de respuesta a preguntas
   module: Module 6 - Building a QnA Solution
-ms.openlocfilehash: 786d4c30b4b4f85b5c85a7a9b8d500a497bb832d
-ms.sourcegitcommit: 6c1ad9a67d6caadcfb7edb4f58e314eab306f720
+ms.openlocfilehash: 3fa849480f4b6f94aea758159de126aeb8bfb513
+ms.sourcegitcommit: 47e8de0c2ea379aac8bec96b7c599ffb74d1eee9
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 12/09/2021
-ms.locfileid: "134463605"
+ms.lasthandoff: 02/22/2022
+ms.locfileid: "139132299"
 ---
 # <a name="create-a-question-answering-solution"></a>Creación de una solución de respuesta a preguntas
 
@@ -95,13 +95,13 @@ La knowledge base se ha rellenado con pares de preguntas y respuestas de las pre
 
 6. En la respuesta que escribió para la pregunta de certificación, seleccione **&#65291; Agregar solicitudes de seguimiento**.
 7. En el cuadro de diálogo **Solicitud de seguimiento**, indique la siguiente configuración y haga clic en **Agregar solicitud**:
-    - **Texto que se muestra en el símbolo del sistema al usuario**: Más información sobre la certificación
+    - **Texto que se muestra en el símbolo del sistema al usuario**: `Learn more about certification`.
     - Seleccione **Crear vínculo a nuevo par** y escriba este texto: `You can learn more about certification on the [Microsoft certification page](https://docs.microsoft.com/learn/certifications/).`
     - **Mostrar solo en el flujo contextual**: seleccionado *Esta opción garantiza que la respuesta solo se devuelve en el contexto de una pregunta de seguimiento a partir de la pregunta de certificación original.*
 
 ## <a name="train-and-test-the-knowledge-base"></a>Entrenamiento y prueba de la base de conocimiento
 
-Ahora que tiene una base de conocimiento, puede probarla en el portal de QnA Maker.
+Ahora que ha creado una base de conocimiento, es el momento de probarla en Language Studio.
 
 1. En la parte superior de la página, haga clic en **Guardar cambios**.
 2. Una vez guardados los cambios, haga clic en **Probar** para abrir el panel de pruebas.

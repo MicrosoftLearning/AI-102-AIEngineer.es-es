@@ -2,12 +2,12 @@
 lab:
   title: Creación de una aptitud personalizada para Azure Cognitive Search
   module: Module 12 - Creating a Knowledge Mining Solution
-ms.openlocfilehash: e09dbbc4fb72ae51e911f1440fd29d4917e50a6a
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: 1321115b5c06fb6791f24f9f89311524be14accc
+ms.sourcegitcommit: 883a607fbe52f48a9425c38a997f776ecd0130af
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "135801369"
+ms.lasthandoff: 04/01/2022
+ms.locfileid: "141347631"
 ---
 # <a name="create-a-custom-skill-for-azure-cognitive-search"></a>Creación de una aptitud personalizada para Azure Cognitive Search
 
@@ -141,330 +141,129 @@ Puede mejorar aún más el índice mediante la creación de aptitudes personaliz
 
 Para implementar la funcionalidad de recuento de palabras como una aptitud personalizada, deberá crear una función de Azure en el lenguaje que prefiera.
 
-1. En Visual Studio Code, vaya a la pestaña de extensiones de Azure (**&boxplus;**) y compruebe que la extensión **Azure Functions** está instalada. Esta extensión le permite crear e implementar funciones de Azure Functions desde Visual Studio Code.
-2. En la pestaña de Azure ( **&Delta;** ), en el panel **Azure Functions**, cree un nuevo proyecto (&#128194;) con la siguiente configuración, en función del lenguaje que prefiera:
+> **Nota**: En este ejercicio, creará una función Node.JS sencilla mediante las funcionalidades de edición de código de Azure Portal. En una solución de producción, lo normal es usar un entorno de desarrollo como Visual Studio Code para crear una aplicación de funciones en el lenguaje preferido (por ejemplo, C#, Python, Node.JS o Java) y publicarla en Azure como parte de un proceso de DevOps.
 
-    ### <a name="c"></a>**C#**
+1. En Azure Portal, en la página **Inicio**, cree un nuevo recurso **Aplicación de funciones** con la siguiente configuración:
+    - **Suscripción**: *Su suscripción*
+    - **Grupo de recursos**: *el mismo grupo de recursos que el recurso de Azure Cognitive Search*
+    - **Nombre de la aplicación de funciones**: *un nombre único*
+    - **Publicar**: Código
+    - **Pila en tiempo de ejecución**: Node.js.
+    - **Versión**: 14 LTS
+    - **Región**: *la misma región que el recurso de Azure Cognitive Search*
 
-    - **Carpeta**: vaya a **23-custom-search-skill/C-Sharp/wordcount**
-    - **Lenguaje**: C#
-    - **Plantilla**: Desencadenador de HTTP
-    - **Nombre de la función**: wordcount
-    - **Espacio de nombres**: margies.search
-    - **Nivel de autorización**: Función
+2. Espere a que se complete la implementación y, a continuación, vaya al recurso de aplicación de funciones implementado.
+3. En la hoja de la aplicación de funciones, en el panel de la izquierda, seleccione la pestaña **Funciones**. A continuación, cree una nueva función con la siguiente configuración:
+    - **Configure un entorno de desarrollo**"
+        - **Entorno de desarrollo**: desarrollo en portal
+    - **Seleccione una plantilla**"
+        - **Plantilla**: Desencadenador HTTP
+    - **Detalles de plantilla**:
+        - **Nueva función**: recuento de palabras
+        - **Nivel de autorización**: Función
+4. Espere a que se cree la función *recuento de palabras*. A continuación, en su página, seleccione la pestaña **Código y prueba**.
+5. Reemplace el código de la función predeterminada por el siguiente:
 
-    ### <a name="python"></a>**Python**
+```javascript
+module.exports = async function (context, req) {
+    context.log('JavaScript HTTP trigger function processed a request.');
 
-    - **Carpeta**: vaya a **23-custom-search-skill/Python/wordcount**
-    - **Lenguaje**: Python
-    - **Entorno virtual**: omita la configuración del entorno virtual.
-    - **Plantilla**: Desencadenador de HTTP
-    - **Nombre de la función**: wordcount
-    - **Nivel de autorización**: Función
+    if (req.body && req.body.values) {
 
-    *Si se le pide que sobrescriba el archivo **launch.json**, sobrescríbalo.*
+        vals = req.body.values;
 
-3. Vuelva a la pestaña **Explorador** ( **&#128461;** ) y compruebe que la carpeta **wordcount** ahora contiene los archivos de código de la función de Azure.
+        // Array of stop words to be ignored
+        var stopwords = ['', 'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 
+        "youre", "youve", "youll", "youd", 'your', 'yours', 'yourself', 
+        'yourselves', 'he', 'him', 'his', 'himself', 'she', "shes", 'her', 
+        'hers', 'herself', 'it', "its", 'itself', 'they', 'them', 
+        'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 
+        'this', 'that', "thatll", 'these', 'those', 'am', 'is', 'are', 'was',
+        'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 
+        'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 
+        'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 
+        'about', 'against', 'between', 'into', 'through', 'during', 'before', 
+        'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 
+        'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 
+        'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 
+        'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 
+        'only', 'own', 'same', 'so', 'than', 'too', 'very', 'can', 'will',
+        'just', "dont", 'should', "shouldve", 'now', "arent", "couldnt", 
+        "didnt", "doesnt", "hadnt", "hasnt", "havent", "isnt", "mightnt", "mustnt",
+        "neednt", "shant", "shouldnt", "wasnt", "werent", "wont", "wouldnt"];
 
-    *Si elige Python, los archivos de código pueden estar en una subcarpeta, también denominada **wordcount**.*
+        res = {"values":[]};
 
-4. El archivo de código principal de la función se debería haber abierto automáticamente. Si no es así, abra el archivo adecuado del lenguaje elegido:
-    - **C#** : wordcount.cs
-    - **Python**: \_\_init\_\_&#46;py
-
-5. Reemplace todo el contenido del archivo con el código siguiente del idioma elegido:
-
-### <a name="c"></a>**C#**
-
-```C#
-using System.IO;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
-using System.Text.RegularExpressions;
-using System.Linq;
-
-namespace margies.search
-{
-    public static class wordcount
-    {
-
-        //define classes for responses
-        private class WebApiResponseError
+        for (rec in vals)
         {
-            public string message { get; set; }
-        }
+            // Get the record ID and text for this input
+            resVal = {recordId:vals[rec].recordId, data:{}};
+            txt = vals[rec].data.text;
 
-        private class WebApiResponseWarning
-        {
-            public string message { get; set; }
-        }
+            // remove punctuation and numerals
+            txt = txt.replace(/[^ A-Za-z_]/g,"").toLowerCase();
 
-        private class WebApiResponseRecord
-        {
-            public string recordId { get; set; }
-            public Dictionary<string, object> data { get; set; }
-            public List<WebApiResponseError> errors { get; set; }
-            public List<WebApiResponseWarning> warnings { get; set; }
-        }
+            // Get an array of words
+            words = txt.split(" ")
 
-        private class WebApiEnricherResponse
-        {
-            public List<WebApiResponseRecord> values { get; set; }
-        }
-
-        //function for custom skill
-        [FunctionName("wordcount")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequest req, ILogger log)
-        {
-            log.LogInformation("Function initiated.");
-
-            string recordId = null;
-            string originalText = null;
-
-            string requestBody = new StreamReader(req.Body).ReadToEnd();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-
-            // Validation
-            if (data?.values == null)
-            {
-                return new BadRequestObjectResult(" Could not find values array");
-            }
-            if (data?.values.HasValues == false || data?.values.First.HasValues == false)
-            {
-                return new BadRequestObjectResult("Could not find valid records in values array");
-            }
-
-            WebApiEnricherResponse response = new WebApiEnricherResponse();
-            response.values = new List<WebApiResponseRecord>();
-            foreach (var record in data?.values)
-            {
-                recordId = record.recordId?.Value as string;
-                originalText = record.data?.text?.Value as string;
-
-                if (recordId == null)
+            // count instances of non-stopwords
+            wordCounts = {}
+            for(var i = 0; i < words.length; ++i) {
+                word = words[i];
+                if (stopwords.includes(word) == false )
                 {
-                    return new BadRequestObjectResult("recordId cannot be null");
+                    if (wordCounts[word])
+                    {
+                        wordCounts[word] ++;
+                    }
+                    else
+                    {
+                        wordCounts[word] = 1;
+                    }
                 }
-
-                // Put together response.
-                WebApiResponseRecord responseRecord = new WebApiResponseRecord();
-                responseRecord.data = new Dictionary<string, object>();
-                responseRecord.recordId = recordId;
-                responseRecord.data.Add("text", Count(originalText));
-
-                response.values.Add(responseRecord);
             }
 
-            return (ActionResult)new OkObjectResult(response); 
-        }
-
-
-            public static string RemoveHtmlTags(string html)
-        {
-            string htmlRemoved = Regex.Replace(html, @"<script[^>]*>[\s\S]*?</script>|<[^>]+>| ", " ").Trim();
-            string normalised = Regex.Replace(htmlRemoved, @"\s{2,}", " ");
-            return normalised;
-        }
-
-        public static List<string> Count(string text)
-        {
-            
-            //remove html elements
-            text=text.ToLowerInvariant();
-            string html = RemoveHtmlTags(text);
-            
-            //split into list of words
-            List<string> list = html.Split(" ").ToList();
-            
-            //remove any non alphabet characters
-            var onlyAlphabetRegEx = new Regex(@"^[A-z]+$");
-            list = list.Where(f => onlyAlphabetRegEx.IsMatch(f)).ToList();
-
-            //remove stop words
-            string[] stopwords = { "", "i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", 
-                    "you're", "you've", "you'll", "you'd", "your", "yours", "yourself", 
-                    "yourselves", "he", "him", "his", "himself", "she", "she's", "her", 
-                    "hers", "herself", "it", "it's", "its", "itself", "they", "them", 
-                    "their", "theirs", "themselves", "what", "which", "who", "whom", 
-                    "this", "that", "that'll", "these", "those", "am", "is", "are", "was",
-                    "were", "be", "been", "being", "have", "has", "had", "having", "do", 
-                    "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", 
-                    "because", "as", "until", "while", "of", "at", "by", "for", "with", 
-                    "about", "against", "between", "into", "through", "during", "before", 
-                    "after", "above", "below", "to", "from", "up", "down", "in", "out", 
-                    "on", "off", "over", "under", "again", "further", "then", "once", "here", 
-                    "there", "when", "where", "why", "how", "all", "any", "both", "each", 
-                    "few", "more", "most", "other", "some", "such", "no", "nor", "not", 
-                    "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", 
-                    "will", "just", "don", "don't", "should", "should've", "now", "d", "ll",
-                    "m", "o", "re", "ve", "y", "ain", "aren", "aren't", "couldn", "couldn't", 
-                    "didn", "didn't", "doesn", "doesn't", "hadn", "hadn't", "hasn", "hasn't", 
-                    "haven", "haven't", "isn", "isn't", "ma", "mightn", "mightn't", "mustn", 
-                    "mustn't", "needn", "needn't", "shan", "shan't", "shouldn", "shouldn't", "wasn", 
-                    "wasn't", "weren", "weren't", "won", "won't", "wouldn", "wouldn't"}; 
-            list = list.Where(x => x.Length > 2).Where(x => !stopwords.Contains(x)).ToList();
-            
-            //get distict words by key and count, and then order by count.
-            var keywords = list.GroupBy(x => x).OrderByDescending(x => x.Count());
-            var klist = keywords.ToList();
-
-            // return the top 10 words
-            var numofWords = 10;
-            if(klist.Count<10)
-                numofWords=klist.Count;
-            List<string> resList = new List<string>();
-            for (int i = 0; i < numofWords; i++)
-            {
-                resList.Add(klist[i].Key);
+            // Convert wordcounts to an array
+            var topWords = [];
+            for (var word in wordCounts) {
+                topWords.push([word, wordCounts[word]]);
             }
-            return resList;
+
+            // Sort in descending order of count
+            topWords.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+
+            // Get the first ten words from the first array dimension
+            resVal.data.text = topWords.slice(0,9)
+              .map(function(value,index) { return value[0]; });
+
+            res.values[rec] = resVal;
+        };
+
+        context.res = {
+            body: JSON.stringify(res),
+            headers: {
+            'Content-Type': 'application/json'
         }
+
+        };
     }
-}
+    else {
+        context.res = {
+            status: 400,
+            body: {"errors":[{"message": "Invalid input"}]},
+            headers: {
+            'Content-Type': 'application/json'
+        }
+
+        };
+    }
+};
 ```
 
-## <a name="python"></a>**Python**
-
-```Python
-import logging
-import os
-import sys
-import json
-from string import punctuation
-from collections import Counter
-import azure.functions as func
-
-
-def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Wordcount function initiated.')
-
-    # The result will be a "values" bag
-    result = {
-        "values": []
-    }
-    statuscode = 200
-
-    # We're going to exclude words from this list in the word counts
-    stopwords = ['', 'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 
-                "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 
-                'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 
-                'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 
-                'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 
-                'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was',
-                'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 
-                'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 
-                'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 
-                'about', 'against', 'between', 'into', 'through', 'during', 'before', 
-                'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 
-                'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 
-                'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 
-                'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 
-                'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 
-                'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll',
-                'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 
-                'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 
-                'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', 
-                "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', 
-                "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
-
-    try:
-        values = req.get_json().get('values')
-        logging.info(values)
-
-        for rec in values:
-            # Construct the basic JSON response for this record
-            val = {
-                    "recordId": rec['recordId'],
-                    "data": {
-                        "text":None
-                    },
-                    "errors": None,
-                    "warnings": None
-                }
-            try:
-                # get the text to be processed from the input record
-                txt = rec['data']['text']
-                # remove numeric digits
-                txt = ''.join(c for c in txt if not c.isdigit())
-                # remove punctuation and make lower case
-                txt = ''.join(c for c in txt if c not in punctuation).lower()
-                # remove stopwords
-                txt = ' '.join(w for w in txt.split() if w not in stopwords)
-                # Count the words and get the most common 10
-                wordcount = Counter(txt.split()).most_common(10)
-                words = [w[0] for w in wordcount]
-                # Add the top 10 words to the output for this text record
-                val["data"]["text"] = words
-            except:
-                # An error occured for this text record, so add lists of errors and warning
-                val["errors"] =[{"message": "An error occurred processing the text."}]
-                val["warnings"] = [{"message": "One or more inputs failed to process."}]
-            finally:
-                # Add the value for this record to the response
-                result["values"].append(val)
-    except Exception as ex:
-        statuscode = 500
-        # A global error occurred, so return an error response
-        val = {
-                "recordId": None,
-                "data": {
-                    "text":None
-                },
-                "errors": [{"message": ex.args}],
-                "warnings": [{"message": "The request failed to process."}]
-            }
-        result["values"].append(val)
-    finally:
-        # Return the response
-        return func.HttpResponse(body=json.dumps(result), mimetype="application/json", status_code=statuscode)
-```
-    
-6. Guarde el archivo actualizado.
-7. Haga clic con el botón derecho en la carpeta **wordcount** que contiene los archivos de código y seleccione **Deploy to Function App** (Implementar en la aplicación de funciones). A continuación, implemente la función con la siguiente configuración específica del lenguaje (inicie sesión en Azure si se le solicita):
-
-    ### <a name="c"></a>**C#**
-
-    - **Suscripción**: seleccione su suscripción a Azure (si se le solicita).
-    - **Función**: Create a new Function App in Azure (Advanced) (Creación de una aplicación de funciones en Azure [avanzado])
-    - **Nombre de la aplicación de funciones**: escriba un nombre globalmente único.
-    - **Entorno de ejecución**: .NET Core 3.1
-    - **SO**: Linux
-    - **Plan de hospedaje**: consumo
-    - **Grupo de recursos**: el grupo de recursos que contiene el recurso de Azure Cognitive Search.
-        - Nota: Si este grupo de recursos ya contiene una aplicación web basada en Windows, no podrá implementar en él una función basada en Linux. Elimine la aplicación web existente o implemente la función en un grupo de recursos diferente.
-    - **Cuenta de almacenamiento**: el recuento de almacenamiento donde se almacenan los documentos de Margie's Travel.
-    - **Application Insights**: omita esto por ahora.
-
-    *Visual Studio Code implementará la versión compilada de la función (en la subcarpeta **bin**) según los valores de configuración de la carpeta **.vscode**, los cuales se guardaron al crear el proyecto de función.*
-
-    ### <a name="python"></a>**Python**
-
-    - **Suscripción**: seleccione su suscripción a Azure (si se le solicita).
-    - **Función**: Create a new Function App in Azure (Advanced) (Creación de una aplicación de funciones en Azure [avanzado])
-    - **Nombre de la aplicación de funciones**: escriba un nombre globalmente único.
-    - **Entorno de ejecución**: Python 3.8
-    - **Plan de hospedaje**: consumo
-    - **Grupo de recursos**: el grupo de recursos que contiene el recurso de Azure Cognitive Search.
-        - Nota: Si este grupo de recursos ya contiene una aplicación web basada en Windows, no podrá implementar en él una función basada en Linux. Elimine la aplicación web existente o implemente la función en un grupo de recursos diferente.
-    - **Cuenta de almacenamiento**: el recuento de almacenamiento donde se almacenan los documentos de Margie's Travel.
-    - **Application Insights**: omita esto por ahora.
-
-8. Espere a Visual Studio Code para implementar la función. Cuando finalice la implementación, aparecerá una notificación.
-
-## <a name="test-the-function"></a>Probar la función
-
-Ahora que ha implementado la función en Azure, puede probarla en Azure Portal.
-
-1. Abra [Azure Portal](https://portal.azure.com) y vaya al grupo de recursos donde ha creado la aplicación de funciones. Después, abra el servicio de aplicaciones para su aplicación de funciones.
-2. En el panel de su servicio de aplicaciones, en la página **Funciones**, abra la función **wordcount**.
-3. En el panel de la función **wordcount**, vaya a la página **Código y prueba** y abra el panel **Probar/ejecutar**.
-4. En el panel **Probar/ejecutar**, reemplace el **cuerpo** existente por el siguiente código JSON, que refleja el esquema esperado por una aptitud de Azure Cognitive Search en la que los registros que contienen datos de uno o varios documentos se envían para su procesamiento:
+6. Guarde la función y, a continuación, abra el panel **Probar/ejecutar**.
+7. En el panel **Probar/ejecutar**, reemplace el **cuerpo** existente por el siguiente código JSON, que refleja el esquema esperado por una aptitud de Azure Cognitive Search en la que los registros que contienen datos de uno o varios documentos se envían para su procesamiento:
 
     ```
     {
@@ -489,7 +288,7 @@ Ahora que ha implementado la función en Azure, puede probarla en Azure Portal.
     }
     ```
     
-5. Haga clic en **Ejecutar** y analice el contenido de la respuesta HTTP que devuelve la función. El contenido refleja el esquema que espera Azure Cognitive Search al consumir una aptitud, en el que se devuelve una respuesta para cada documento. En este caso, la respuesta está formada por hasta 10 términos en cada documento en orden descendente según la frecuencia con la que aparecen:
+8. Haga clic en **Ejecutar** y analice el contenido de la respuesta HTTP que devuelve la función. El contenido refleja el esquema que espera Azure Cognitive Search al consumir una aptitud, en el que se devuelve una respuesta para cada documento. En este caso, la respuesta está formada por hasta 10 términos en cada documento en orden descendente según la frecuencia con la que aparecen:
 
     ```
     {
@@ -529,7 +328,7 @@ Ahora que ha implementado la función en Azure, puede probarla en Azure Portal.
     }
     ```
 
-6. Cierre el panel **Probar/ejecutar** y, en el panel de la función **wordcount**, haga clic en **Obtener la dirección URL de la función**. Después, copie la dirección URL de la clave predeterminada en el portapapeles, la necesitará en el siguiente procedimiento.
+9. Cierre el panel **Probar/ejecutar** y, en el panel de la función **wordcount**, haga clic en **Obtener la dirección URL de la función**. Después, copie la dirección URL de la clave predeterminada en el portapapeles, la necesitará en el siguiente procedimiento.
 
 ## <a name="add-the-custom-skill-to-the-search-solution"></a>Adición de la aptitud personalizada a la solución de búsqueda
 
