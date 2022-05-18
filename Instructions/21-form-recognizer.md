@@ -2,16 +2,16 @@
 lab:
   title: Extracción de datos de formularios
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 45915cfcb832635b668d9b22da931c2b467c7452
-ms.sourcegitcommit: 29a684646784fe4f7370343b6c005728a953770d
+ms.openlocfilehash: 3439c9d2d53fd0461b2fe35b095ea86d5ed3abaa
+ms.sourcegitcommit: da2617566698e889ff53426e6ddb58f42ccf9504
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 05/04/2022
-ms.locfileid: "144557837"
+ms.lasthandoff: 05/05/2022
+ms.locfileid: "144776177"
 ---
 # <a name="extract-data-from-forms"></a>Extracción de datos de formularios 
 
-Supongamos que una empresa necesita automatizar un proceso de entrada de datos. Actualmente, un empleado lee manualmente un pedido de compra y escribe los datos en una base de datos. Quiere crear un modelo que use el aprendizaje automático para leer el formulario y generar datos estructurados que se puedan usar para actualizar automáticamente una base de datos.
+Imagine que, en una empresa, los empleados actualmente deben comprar manualmente hojas de pedidos y escribir los datos en una base de datos. Les gustaría usar servicios de inteligencia artificial para mejorar el proceso de entrada de datos. Usted decide crear un modelo de aprendizaje automático que lea el formulario y genere datos estructurados que se puedan usar para actualizar automáticamente una base de datos.
 
 **Form Recognizer** es un servicio cognitivo que permite a los usuarios compilar software de procesamiento de datos automatizado. Este software puede extraer texto, pares clave-valor y tablas de documentos de formulario mediante el reconocimiento óptico de caracteres (OCR). Form Recognizer dispone de modelos creados previamente para reconocer facturas, recibos y tarjetas de presentación. El servicio también proporciona la capacidad de entrenar modelos personalizados. En este ejercicio, nos centraremos en la creación de modelos personalizados.
 
@@ -28,7 +28,7 @@ Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 
 ## <a name="create-a-form-recognizer-resource"></a>Creación de un recurso de Form Recognizer
 
-Para usar el servicio Form Recognizer, debe crear un recurso de Form Recognizer en su suscripción de Azure. Usará Azure Portal para crear un recurso.
+Para usar el servicio Form Recognizer, debe crear un recurso de Form Recognizer o Cognitive Services en su suscripción de Azure. Usará Azure Portal para crear un recurso.
 
 1.  Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 
@@ -45,15 +45,15 @@ Para usar el servicio Form Recognizer, debe crear un recurso de Form Recognizer 
 
 ## <a name="gather-documents-for-training"></a>Recopilación de documentos para el entrenamiento
 
-![Imagen de una factura.](../21-custom-form/sample-forms/Form_1.png)  
+![Imagen de una factura.](../21-custom-form/sample-forms/Form_1.jpg)  
 
-Usará los formularios de ejemplo de la carpeta **21-custom-form/sample-forms** de este repositorio, que contienen todos los archivos que necesitará para entrenar un modelo sin etiquetas y otro modelo con etiquetas.
+Usará los formularios de ejemplo de la carpeta **21-custom-form/sample-forms** de este repositorio, que contienen todos los archivos que necesitará para entrenar y probar un modelo.
 
-1. En Visual Studio Code, en la carpeta **21-custom-form**, expanda la carpeta **sample-forms**. Observe que hay archivos que terminan en **.json** y **.jpg** en la carpeta .
+1. En Visual Studio Code, en la carpeta **21-custom-form**, expanda la carpeta **sample-forms**. Observe que hay archivos que terminan en **.json** y **.jpg** en la carpeta.
 
-    Usará los archivos **.jpg** para entrenar el primer modelo _sin_ etiquetas.  
+    Usará los archivos **.jpg** para entrenar el modelo.  
 
-    Después, usará los archivos que terminan en **.json** y **.jpg** para entrenar el segundo modelo _con_ etiquetas. Los archivos **.json** se han generado automáticamente y contienen información de etiqueta. Para realizar el entrenamiento con etiquetas, debe disponer de archivos de información con etiquetas en el contenedor de almacenamiento de blobs junto con los formularios. 
+    Los archivos **.json** se han generado automáticamente y contienen información de etiqueta. Los archivos se cargarán en el contenedor de Blob Storage junto con los formularios. 
 
 2. Vuelva a Azure Portal en [https://portal.azure.com](https://portal.azure.com).
 
@@ -106,16 +106,20 @@ setup
 
 15. En Azure Portal, actualice el grupo de recursos y compruebe que contiene la cuenta de Azure Storage que acaba de crear. Abra la cuenta de almacenamiento y, en el panel de la izquierda, seleccione **Explorador de almacenamiento (versión preliminar)** . A continuación, en el Explorador de almacenamiento, expanda **CONTENEDORES DE BLOBS** y seleccione el contenedor **sampleforms** para comprobar que los archivos se hayan cargado desde la carpeta local **21-custom-form/sample-forms**.
 
-## <a name="train-a-model-without-labels"></a>Entrenamiento de un modelo *sin* etiquetas
+## <a name="train-a-model-using-the-form-recognizer-sdk"></a>Entrenamiento de un modelo con el SDK de Form Recognizer
 
-Usará el SDK de Form Recognizer para entrenar y probar un modelo personalizado.  
+Ahora entrenará un modelo con los archivos **.jpg** y **.json**.
 
-> **Nota**: En este ejercicio, puede elegir usar la API del SDK de **C#** o **Python**. En los pasos siguientes, realice las acciones adecuadas para su lenguaje preferido.
+1. En Visual Studio Code, en la carpeta **21-custom-form/sample-forms**, abra **fields.json** y revise el documento JSON que contiene. Este archivo define los campos que entrenará un modelo para extraer de los formularios.
+2. Abra **Form_1.jpg.labels.json** y revise el JSON que contiene. Este archivo identifica la ubicación y los valores de los campos con nombre del documento de entrenamiento **Form_1.jpg**.
+3. Abra **Form_1.jpg.ocr.json** y revise el JSON que contiene. Este archivo contiene una representación JSON del diseño de texto de **Form_1.jpg**, incluida la ubicación de todas las áreas de texto que se encuentran en el formulario.
 
-1. En Visual Studio Code, en la carpeta **21-custom-form**, expanda la carpeta **C-Sharp** o **Python** según sus preferencias de lenguaje.
-2. Haga clic con el botón derecho en la carpeta **train-model** y abra un terminal integrado.
+    *En este ejercicio, se proporcionan los archivos con la información de los campos. Para sus propios proyectos, puede crear estos archivos con [Form Recognizer Studio](https://formrecognizer.appliedai.azure.com/studio). A medida que usa la herramienta, se crean automáticamente los archivos de información de los campos y se almacenan en su cuenta de almacenamiento conectada.*
 
-3. Instale el paquete de Form Recognizer mediante la ejecución del comando adecuado para sus preferencias de lenguaje:
+4. En Visual Studio Code, en la carpeta **21-custom-form**, expanda la carpeta **C-Sharp** o **Python** según sus preferencias de lenguaje.
+5. Haga clic con el botón derecho en la carpeta **train-model** y abra un terminal integrado.
+
+6. Instale el paquete de Form Recognizer mediante la ejecución del comando adecuado para sus preferencias de lenguaje:
 
 **C#**
 
@@ -129,16 +133,16 @@ dotnet add package Azure.AI.FormRecognizer --version 3.0.0
 pip install azure-ai-formrecognizer==3.0.0
 ```
 
-3. Consulte el contenido de la carpeta **train-model** y observe que contiene un archivo para las opciones de configuración:
+7. Consulte el contenido de la carpeta **train-model** y observe que contiene un archivo para las opciones de configuración:
     - **C#** : appsettings.json
     - **Python**: .env
 
-4. Edite el archivo de configuración y modifique la configuración para reflejar:
+8. Edite el archivo de configuración y modifique la configuración para reflejar:
     - El **punto de conexión** del recurso de Form Recognizer.
     - Una **clave** para el recurso de Form Recognizer.
     - El **URI de SAS** del contenedor de blobs.
 
-5. Tenga en cuenta que la carpeta **train-model** contiene un archivo de código para la aplicación cliente:
+9. Tenga en cuenta que la carpeta **train-model** contiene un archivo de código para la aplicación cliente:
 
     - **C#** : Program.cs
     - **Python**: train-model.py
@@ -146,10 +150,14 @@ pip install azure-ai-formrecognizer==3.0.0
     Abra el archivo de código y revise el código que contiene, fijándose en los siguientes detalles:
     - Se importan los espacios de nombres del paquete instalado.
     - La función **Main** recupera los valores de configuración y usa la clave y el punto de conexión para crear un **Cliente** autenticado.
-    - El código usa el cliente de entrenamiento para entrenar un modelo mediante las imágenes del contenedor de Blob Storage, al que se accede mediante el URI de SAS generado.
-    - El entrenamiento se realiza con un parámetro para indicar que <u>no</u> se deben usar etiquetas de entrenamiento. Form Recognizer usa una técnica *no supervisada* para extraer los campos de las imágenes de formulario.
+    - El código usa el cliente de entrenamiento para entrenar un modelo usando las imágenes de su contenedor de Blob Storage, al que se accede con el URI de SAS generado.
 
-6. Vuelva al terminal integrado de la carpeta **train-model** y escriba el siguiente comando para ejecutar el programa:
+10. En la carpeta **train-model**, abra el archivo de código para la aplicación de entrenamiento:
+
+    - **C#** : Program.cs
+    - **Python**: train-model.py
+
+11. Vuelva al terminal integrado de la carpeta **train-model** y escriba el siguiente comando para ejecutar el programa:
 
 **C#**
 
@@ -163,16 +171,15 @@ dotnet run
 python train-model.py
 ```
 
-7. Espere a que termine el programa. A continuación, revise la salida del modelo y busque el id. de modelo en el terminal. No cierre el terminal ya que necesitará este valor en el siguiente procedimiento.
+12. Espere a que termine el programa y, a continuación, revise la salida del modelo.
+13. Anote el id. de modelo de la salida del terminal. Lo necesitará para la siguiente parte del laboratorio. 
 
-## <a name="test-the-model-created-without-labels"></a>Prueba del modelo creado sin etiquetas
-
-Ya está listo para usar el modelo entrenado. Observe que entrenó el modelo mediante archivos de un URI de contenedor de almacenamiento. También podría haber entrenado el modelo mediante archivos locales. De forma similar, puede probar el modelo mediante formularios desde un URI o desde archivos locales. Probará el modelo de formulario con un archivo local.
-
-Ahora que tiene el id. de modelo, puede usarlo desde una aplicación cliente. Una vez más, puede optar por usar **C#** o **Python**.
+## <a name="test-your-custom-form-recognizer-model"></a>Prueba del modelo de Form Recognizer personalizado 
 
 1. En la carpeta **21-custom-form**, en la subcarpeta de su lenguaje preferido (**C-Sharp** o **Python**), expanda la carpeta **test-model**.
-2. Haga clic con el botón derecho en la carpeta **test-model** y abra un terminal integrado. Ahora tiene (al menos) dos terminales **cmd** y puede cambiar entre ellos mediante la lista desplegable del panel Terminal.
+
+2. Haga clic con el botón derecho en la carpeta **test-model** y **abra un terminal integrado**.
+
 3. En el terminal de la carpeta **test-model**, instale el paquete de Form Recognizer mediante la ejecución del comando adecuado para sus preferencias de lenguaje:
 
 **C#**
@@ -192,13 +199,14 @@ pip install azure-ai-formrecognizer==3.0.0
 4. En la carpeta **test-model**, edite el archivo de configuración (**appsettings.json** o **.env**, según sus preferencias de lenguaje) para agregar los valores siguientes:
     - El punto de conexión de Form Recognizer.
     - La clave de Form Recognizer.
-    - El id. de modelo generado al entrenar el modelo (puede encontrarlo cambiando el terminal de nuevo a la consola **cmd** de la carpeta **train-model**).
+    - El id. de modelo generado al entrenar el modelo (puede encontrarlo cambiando el terminal de nuevo a la consola **cmd** de la carpeta **train-model**). Guarde los cambios mediante **Guardar**.
 
 5. En la carpeta **test-model** abra el archivo de código de la aplicación cliente (*Program.cs* para C#, *test-model.py* para Python) y revise el código que contiene, fijándose en los detalles siguientes:
     - Se importan los espacios de nombres del paquete instalado.
     - La función **Main** recupera los valores de configuración y usa la clave y el punto de conexión para crear un **Cliente** autenticado.
     - A continuación, el cliente se usa para extraer los campos de formulario y los valores de la imagen **test1.jpg**.
     
+
 6. Vuelva al terminal integrado de la carpeta **test-model** y escriba el siguiente comando para ejecutar el programa:
 
 **C#**
@@ -212,80 +220,8 @@ dotnet run
 ```
 python test-model.py
 ```
-
-7. Vea la salida y observe las puntuaciones de confianza de predicción. Observe cómo la salida proporciona los nombres de campo field-1, field-2, etc. 
-
-## <a name="train-a-model-with-labels-using-the-client-library"></a>Entrenamiento de un modelo *con* etiquetas mediante la biblioteca cliente
-
-Supongamos que, después de entrenar un modelo con los formularios de factura, quiere ver cómo funciona un modelo entrenado con datos etiquetados. Cuando entrenó un modelo sin etiquetas, solo usó los formularios **.jpg** del contenedor de blobs de Azure. Ahora entrenará un modelo con los archivos **.jpg** y **.json**.
-
-1. En Visual Studio Code, en la carpeta **21-custom-form/sample-forms**, abra **fields.json** y revise el documento JSON que contiene. Este archivo define los campos que entrenará un modelo para extraer de los formularios.
-2. Abra **Form_1.jpg.labels.json** y revise el JSON que contiene. Este archivo identifica la ubicación y los valores de los campos con nombre del documento de entrenamiento **Form_1.jpg**.
-3. Abra **Form_1.jpg.ocr.json** y revise el JSON que contiene. Este archivo contiene una representación JSON del diseño de texto de **Form_1.jpg**, incluida la ubicación de todas las áreas de texto que se encuentran en el formulario.
-
-    *En este ejercicio, se han proporcionado los archivos de información de campos. Para sus propios proyectos, puede crear estos archivos mediante la [herramienta de etiquetado de ejemplo](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/label-tool). Al usar la herramienta, los archivos de información de campos se crean y almacenan automáticamente en la cuenta de almacenamiento conectada.*
-
-4. En la carpeta **train-model**, abra el archivo de código para la aplicación de entrenamiento:
-
-    - **C#** : Program.cs
-    - **Python**: train-model.py
-
-5. En la función **Main**, busque el comentario **Entrenar el modelo** y modifíquelo como se muestra para cambiar el proceso de entrenamiento de modo que se utilicen etiquetas:
-
-**C#**
-
-```C#
-// Train model 
-CustomFormModel model = await trainingClient
-.StartTrainingAsync(new Uri(trainingStorageUri), useTrainingLabels: true)
-.WaitForCompletionAsync();
-```
-
-**Python**
-
-```Python
-# Train model 
-poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
-model = poller.result()
-```
-
-6. Vuelva al terminal integrado de la carpeta **train-model** y escriba el siguiente comando para ejecutar el programa:
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python train-model.py
-```
-
-10. Espere a que termine el programa y, a continuación, revise la salida del modelo.
-11. Anote el nuevo id. de modelo en la salida del terminal. 
-
-## <a name="test-the-model-created-with-labels"></a>Prueba del modelo creado con etiquetas
-
-1. En la carpeta **test-model**, edite el archivo de configuración (**appsettings.json** o **.env**, según sus preferencias de lenguaje) y actualícelo para reflejar el nuevo id. de modelo. Guarde los cambios.
-2. Vuelva al terminal integrado de la carpeta **test-model** y escriba el siguiente comando para ejecutar el programa:
-
-**C#**
-
-```
-dotnet run
-```
-
-**Python**
-
-```
-python test-model.py
-```
     
-3. Mire la salida y observe cómo la salida del modelo entrenado **con** etiquetas proporciona nombres de campo como "CompanyPhoneNumber" y "DatedAs", a diferencia de la salida del modelo entrenado **sin** etiquetas, que produjo una salida de field-1, field-2, etc.  
-
-Aunque el código del programa para entrenar un modelo _con_ etiquetas puede no diferir en mucho del código para el entrenamiento _sin_ etiquetas, elegir uno frente a otro _cambia_ las necesidades de planeamiento del proyecto. Para entrenar con etiquetas, deberá [crear los archivos etiquetados](https://docs.microsoft.com/azure/applied-ai-services/form-recognizer/quickstarts/try-sample-label-tool). La elección del proceso de entrenamiento también puede generar modelos diferentes, lo que a su vez puede afectar a los procesos de bajada en función de los campos que devuelve el modelo y de la confianza que tiene con los valores devueltos. 
+7. Observe que la salida del modelo proporciona nombres de campo como "CompanyPhoneNumber" y "DatedAs".   
 
 ## <a name="more-information"></a>Más información
 
