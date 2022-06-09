@@ -2,12 +2,12 @@
 lab:
   title: Extracción de datos de formularios
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 3439c9d2d53fd0461b2fe35b095ea86d5ed3abaa
-ms.sourcegitcommit: da2617566698e889ff53426e6ddb58f42ccf9504
+ms.openlocfilehash: 540fdc49b9efcf335d43cdd7a6db405c255cd058
+ms.sourcegitcommit: de1f38bbe53ec209b42cd89516813773e2f3479b
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 05/05/2022
-ms.locfileid: "144776177"
+ms.lasthandoff: 05/17/2022
+ms.locfileid: "145040705"
 ---
 # <a name="extract-data-from-forms"></a>Extracción de datos de formularios 
 
@@ -196,18 +196,32 @@ pip install azure-ai-formrecognizer==3.0.0
 
 *No es estrictamente necesario si anteriormente usó pip para instalar el paquete en el entorno de Python; pero no hará daño asegurarse de que está instalado.*
 
-4. En la carpeta **test-model**, edite el archivo de configuración (**appsettings.json** o **.env**, según sus preferencias de lenguaje) para agregar los valores siguientes:
+4. En el mismo terminal de la carpeta **test-model** , instale la biblioteca tabulate. Esto proporcionará la salida en una tabla:
+
+**C#**
+
+```
+Install-Package Tabulate.NET -Version 1.0.5
+```
+
+**Python**
+
+```
+pip install tabulate
+```
+
+5. En la carpeta **test-model**, edite el archivo de configuración (**appsettings.json** o **.env**, según sus preferencias de lenguaje) para agregar los valores siguientes:
     - El punto de conexión de Form Recognizer.
     - La clave de Form Recognizer.
     - El id. de modelo generado al entrenar el modelo (puede encontrarlo cambiando el terminal de nuevo a la consola **cmd** de la carpeta **train-model**). Guarde los cambios mediante **Guardar**.
 
-5. En la carpeta **test-model** abra el archivo de código de la aplicación cliente (*Program.cs* para C#, *test-model.py* para Python) y revise el código que contiene, fijándose en los detalles siguientes:
+6. En la carpeta **test-model** abra el archivo de código de la aplicación cliente (*Program.cs* para C#, *test-model.py* para Python) y revise el código que contiene, fijándose en los detalles siguientes:
     - Se importan los espacios de nombres del paquete instalado.
     - La función **Main** recupera los valores de configuración y usa la clave y el punto de conexión para crear un **Cliente** autenticado.
     - A continuación, el cliente se usa para extraer los campos de formulario y los valores de la imagen **test1.jpg**.
     
 
-6. Vuelva al terminal integrado de la carpeta **test-model** y escriba el siguiente comando para ejecutar el programa:
+7. Vuelva al terminal integrado de la carpeta **test-model** y escriba el siguiente comando para ejecutar el programa:
 
 **C#**
 
@@ -221,7 +235,7 @@ dotnet run
 python test-model.py
 ```
     
-7. Observe que la salida del modelo proporciona nombres de campo como "CompanyPhoneNumber" y "DatedAs".   
+8. Observe que la salida del modelo proporciona nombres de campo como "CompanyPhoneNumber" y "DatedAs".   
 
 ## <a name="more-information"></a>Más información
 
