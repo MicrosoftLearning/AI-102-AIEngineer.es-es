@@ -2,12 +2,12 @@
 lab:
   title: Introducción a Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: 4baba38b03c6d7bb5fe04fa5e73bb606e970550b
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: a05256a78dee051041320aa3556a43add5596ce9
+ms.sourcegitcommit: 5ffc20f6a590fe643c2b695b8dc04589411be36e
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "135801357"
+ms.lasthandoff: 05/31/2022
+ms.locfileid: "145951195"
 ---
 # <a name="get-started-with-cognitive-services"></a>Introducción a Cognitive Services
 
@@ -54,7 +54,7 @@ Las Cognitive Services APIs se basan en REST, por lo que se pueden consumir medi
     - **Python**: .env
 
     Abra el archivo de configuración y actualice los valores de configuración que contiene para reflejar el **punto de conexión** y una **clave** de autenticación para el recurso de Cognitive Services. Guarde los cambios.
-4. Tenga en cuenta que la carpeta **rest-client** contiene un archivo de código para la aplicación cliente:
+3. Tenga en cuenta que la carpeta **rest-client** contiene un archivo de código para la aplicación cliente:
 
     - **C#** : Program.cs
     - **Python**: rest-client.py
@@ -66,7 +66,7 @@ Las Cognitive Services APIs se basan en REST, por lo que se pueden consumir medi
     - La solicitud enviada a la API consta de un objeto JSON que contiene los datos de entrada; en este caso, una colección de objetos de **documentos**, cada uno de los cuales tiene un **id.** y **texto**.
     - La clave del servicio se incluye en el encabezado de solicitud para autenticar la aplicación cliente.
     - La respuesta del servicio es un objeto JSON que la aplicación cliente puede analizar.
-5. Haga clic con el botón derecho en la carpeta **rest-client** y abra un terminal integrado. A continuación, escriba el siguiente comando específico del lenguaje para ejecutar el programa:
+4. Haga clic con el botón derecho en la carpeta **rest-client** y abra un terminal integrado. A continuación, escriba el siguiente comando específico del lenguaje para ejecutar el programa:
 
     **C#**
 
@@ -80,8 +80,8 @@ Las Cognitive Services APIs se basan en REST, por lo que se pueden consumir medi
     python rest-client.py
     ```
 
-6. Cuando se le solicite, escriba algún texto y revise el idioma que detecta el servicio, que se devuelve en la respuesta JSON. Por ejemplo, pruebe a escribir "Hello", "Bonjour" y "Hola".
-7. Cuando haya terminado de probar la aplicación, escriba "quit" (salir) para detener el programa.
+5. Cuando se le solicite, escriba algún texto y revise el idioma que detecta el servicio, que se devuelve en la respuesta JSON. Por ejemplo, pruebe a escribir "Hello", "Bonjour" y "Gracias".
+6. Cuando haya terminado de probar la aplicación, escriba "quit" (salir) para detener el programa.
 
 ## <a name="use-an-sdk"></a>Uso de un SDK
 

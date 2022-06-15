@@ -2,12 +2,12 @@
 lab:
   title: Administración de la seguridad de Azure Cognitive Services
   module: Module 2 - Developing AI Apps with Cognitive Services
-ms.openlocfilehash: dcab47cf20f54d6bcbed9a3e40081b703fc2d5ba
-ms.sourcegitcommit: acbffd6019fe2f1a6ea70870cf7411025c156ef8
+ms.openlocfilehash: 9c8de44265ffa0846b6860fd7d416bb3be547ed9
+ms.sourcegitcommit: 5ffc20f6a590fe643c2b695b8dc04589411be36e
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 01/12/2022
-ms.locfileid: "135801336"
+ms.lasthandoff: 05/31/2022
+ms.locfileid: "145951194"
 ---
 # <a name="manage-cognitive-services-security"></a>Administración de la seguridad de Azure Cognitive Services
 
@@ -228,7 +228,7 @@ Ahora ya puede usar la identidad de la entidad de servicio en una aplicación, d
     python keyvault-client.py
     ```
 
-6. Cuando se le solicite, escriba algún texto y revise el idioma que detecta el servicio. Por ejemplo, pruebe a escribir "Hello", "Bonjour" y "Hola".
+6. Cuando se le solicite, escriba algún texto y revise el idioma que detecta el servicio. Por ejemplo, pruebe a escribir "Hello", "Bonjour" y "Gracias".
 7. Cuando haya terminado de probar la aplicación, escriba "quit" (salir) para detener el programa.
 
 ## <a name="more-information"></a>Más información

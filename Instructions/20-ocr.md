@@ -2,12 +2,12 @@
 lab:
   title: Lectura de texto en imágenes
   module: Module 11 - Reading Text in Images and Documents
-ms.openlocfilehash: 0dc45d60e307769ebfde165201b97c4a3ff49675
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 1199e4e4f44a98fc5f900fa1ad021384b56f0c2b
+ms.sourcegitcommit: e242452e8125a2622093980048f1e2cacb8b893d
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625899"
+ms.lasthandoff: 05/25/2022
+ms.locfileid: "145757494"
 ---
 # <a name="read-text-in-images"></a>Lectura de texto en imágenes
 
@@ -18,8 +18,8 @@ El reconocimiento óptico de caracteres (OCR) es un subconjunto de Computer Visi
 Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
@@ -29,7 +29,7 @@ Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. Seleccione el botón **&amp;#65291;Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
+2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
     - **Región**: *elija cualquier región disponible*
@@ -37,7 +37,7 @@ Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Co
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
 4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
-5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
+5. Cuando se haya implementado el recurso, vaya a él y vea su página **Keys and Endpoint** (Claves y punto de conexión). Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Preparación para el uso del SDK de Computer Vision
 
@@ -213,7 +213,7 @@ python read-text.py
 
 ## <a name="use-the-read-api"></a>Uso de Read API
 
-**Read** API usa un modelo de reconocimiento de texto más reciente que la API de OCR y funciona mejor para imágenes más grandes que contienen una gran cantidad de texto. También admite la extracción de texto de archivos *.pdf* y puede reconocer tanto texto impreso (en varios idiomas) como texto manuscrito (en inglés).
+**Read** API usa un modelo de reconocimiento de texto más reciente que la API de OCR y funciona mejor para imágenes más grandes que contienen una gran cantidad de texto. También admite la extracción de texto de archivos *.pdf* y puede reconocer tanto texto impreso como texto manuscrito en varios idiomas.
 
 **Read** API usa un modelo de operaciones asincrónicas, en el que se envía una solicitud para iniciar el reconocimiento de texto y el id. de operación devuelto por la solicitud se pueden usar posteriormente para comprobar el progreso y recuperar los resultados.
 

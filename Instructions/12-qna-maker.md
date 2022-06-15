@@ -2,12 +2,12 @@
 lab:
   title: Creación de una solución de respuesta a preguntas
   module: Module 6 - Building a QnA Solution
-ms.openlocfilehash: 3fa849480f4b6f94aea758159de126aeb8bfb513
-ms.sourcegitcommit: 47e8de0c2ea379aac8bec96b7c599ffb74d1eee9
+ms.openlocfilehash: 0a71dc2c0185c51d8ccf390afd780dd914366be0
+ms.sourcegitcommit: 45e075a4b45a914d378900b4c00451a530d813de
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 02/22/2022
-ms.locfileid: "139132299"
+ms.lasthandoff: 05/26/2022
+ms.locfileid: "145892516"
 ---
 # <a name="create-a-question-answering-solution"></a>Creación de una solución de respuesta a preguntas
 
@@ -89,7 +89,7 @@ La knowledge base se ha rellenado con pares de preguntas y respuestas de las pre
 2. En la knowledge base, seleccione **&#65291; Agregar par de pregunta**.
 3. En el cuadro **Pregunta**, escriba `What is Microsoft certification?` y presione **Entrar****.
 4. Seleccione **&#65291; Agregar expresiones alternativas**, escriba `How can I demonstrate my Microsoft technology skills?` y presione **Entrar**.
-5. En el cuadro **Respuesta**, escriba `The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.` y presione **Entrar**. Haga clic en **Enviar** para agregar la pregunta, incluida la expresión alternativa, y la respuesta a la knowledge base.
+5. En el cuadro **Respuesta**, escriba `The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.` y presione **Enviar** para agregar la pregunta, incluida la expresión alternativa, y la respuesta a la knowledge base.
 
     En algunos casos, tiene sentido permitir que el usuario realice un seguimiento de la respuesta para crear una conversación *multiturno* que permita al usuario refinar iterativamente la pregunta para llegar a la respuesta que necesita.
 
