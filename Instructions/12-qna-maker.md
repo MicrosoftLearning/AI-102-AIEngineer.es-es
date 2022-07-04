@@ -2,12 +2,12 @@
 lab:
   title: Creación de una solución de respuesta a preguntas
   module: Module 6 - Building a QnA Solution
-ms.openlocfilehash: 0a71dc2c0185c51d8ccf390afd780dd914366be0
-ms.sourcegitcommit: 45e075a4b45a914d378900b4c00451a530d813de
+ms.openlocfilehash: 42b3b6e6955188d3d442a4f587ead6afe0f389c6
+ms.sourcegitcommit: a879eae298aaf2ab6415fc4fdb67f52f592d907a
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 05/26/2022
-ms.locfileid: "145892516"
+ms.lasthandoff: 07/02/2022
+ms.locfileid: "146902485"
 ---
 # <a name="create-a-question-answering-solution"></a>Creación de una solución de respuesta a preguntas
 
@@ -166,4 +166,4 @@ Normalmente, las aplicaciones cliente que se usan para recuperar respuestas de u
 
 ## <a name="more-information"></a>Más información
 
-Para obtener más información sobre las respuestas a preguntas en el servicio Language, consulte la [documentación del servicio Language](https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/question-answering/overview).
+Para obtener más información sobre las respuestas a preguntas en el servicio de Lenguage, consulte la [documentación del servicio Language](https://docs.microsoft.com/en-us/azure/cognitive-services/language-service/question-answering/overview).
