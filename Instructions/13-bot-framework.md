@@ -2,12 +2,12 @@
 lab:
   title: Creación de un bot con el SDK de Bot Framework
   module: Module 7 - Conversational AI and the Azure Bot Service
-ms.openlocfilehash: 7f2d78bec2ee9fab7bf5fad9ec9ef8ebc76b7fba
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: ab51a1f11f4eee99838634d83b5d9261a8c20ecb
+ms.sourcegitcommit: 480c5898009ea964025fdecb57900aefeeac81fd
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625941"
+ms.lasthandoff: 07/07/2022
+ms.locfileid: "147019888"
 ---
 # <a name="create-a-bot-with-the-bot-framework-sdk"></a>Creación de un bot con el SDK de Bot Framework
 
@@ -27,6 +27,8 @@ Va a usar el SDK de Bot Framework para crear el bot y Bot Framework Emulator par
 
 1. Inicie **Bot Framework Emulator** y, si se le pide que instale una actualización, hágalo para el usuario que ha iniciado sesión actualmente. Si no se le solicita automáticamente, use la opción **Buscar actualización** en el menú **Ayuda** para buscar actualizaciones.
 2. Después de instalar cualquier actualización disponible, cierre Bot Framework Emulator hasta que lo vuelva a necesitar más adelante.
+
+> **Importante**: A veces la actualización no se descarga; estamos investigándolo. Si no hay progreso en un par de minutos después de intentar actualizar, puede descartar la descarga y usar la versión instalada actualmente del emulador.
 
 ### <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
