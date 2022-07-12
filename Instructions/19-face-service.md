@@ -2,24 +2,26 @@
 lab:
   title: Detección, análisis y reconocimiento de caras
   module: Module 10 - Detecting, Analyzing, and Recognizing Faces
-ms.openlocfilehash: b9565f41eb67b916278508c729860a3471a9e0bd
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: 29b0544e4f31f6e85eeba5cd8fb42951ca1334a9
+ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625918"
+ms.lasthandoff: 07/09/2022
+ms.locfileid: "147041661"
 ---
 # <a name="detect-analyze-and-recognize-faces"></a>Detección, análisis y reconocimiento de caras
 
 La capacidad de detectar, analizar y reconocer caras de personas es una funcionalidad básica de la inteligencia artificial. En este ejercicio, explorará dos funcionalidades de Azure Cognitive Services que puede usar para trabajar con caras de imágenes: el servicio **Computer Vision** y el servicio **Face**.
+
+> **Nota**: A partir del 21 de junio de 2022, las funcionalidades de Cognitive Services que devuelven información de identificación personal están restringidas a los clientes a los que se les ha concedido [acceso limitado](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access). Además, las funcionalidades que infieren el estado emocional ya no están disponibles. Estas restricciones pueden afectar a este ejercicio de laboratorio. Estamos trabajando para solucionar esto, pero, mientras tanto, es posible que experimente algunos errores al realizar los pasos siguientes; es por ello que nos disculpamos. Para obtener más detalles sobre los cambios realizados por Microsoft y la razón de estos, consulte el blog sobre [inversiones de inteligencia artificial y medidas de seguridad responsables para el reconocimiento facial](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/).
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
 Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
@@ -29,15 +31,15 @@ Si aún no lo ha hecho, debe clonar el repositorio de código para este curso:
 Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
-2. Seleccione el botón **&amp;#65291;Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
+2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
     - **Suscripción**: *suscripción de Azure*
     - **Grupo de recursos**: *elija o cree un grupo de recursos (si usa una suscripción restringida, es posible que no tenga permiso para crear un nuevo grupo de recursos; use el proporcionado)*
     - **Región**: *elija cualquier región disponible*
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
-5. Cuando se haya implementado el recurso, vaya a él y vea su página **Claves y punto de conexión**. Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
+4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
+5. Cuando se haya implementado el recurso, vaya a él y vea su página **Keys and Endpoint** (Claves y punto de conexión). Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Preparación para el uso del SDK de Computer Vision
 
@@ -171,7 +173,7 @@ using (var imageData = File.OpenRead(imageFile))
             var r = face.FaceRectangle;
             Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
             graphics.DrawRectangle(pen, rect);
-            string annotation = $"Person aged approximately {face.Age}";
+            string annotation = $"Person at approximately {face.Left}, {face.Top}";
             graphics.DrawString(annotation,font,brush,r.Left, r.Top);
         }
 
@@ -207,7 +209,7 @@ with open(image_file, mode="rb") as image_data:
             bounding_box = ((r.left, r.top), (r.left + r.width, r.top + r.height))
             draw = ImageDraw.Draw(image)
             draw.rectangle(bounding_box, outline=color, width=5)
-            annotation = 'Person aged approximately {}'.format(face.age)
+            annotation = 'Person at approximately {}, {}'.format(r.left, r.top)
             plt.annotate(annotation,(r.left, r.top), backgroundcolor=color)
 
         # Save annotated image
@@ -233,7 +235,7 @@ with open(image_file, mode="rb") as image_data:
     ```
 
 6. Observe la salida, que debe indicar el número de caras detectadas.
-7. Consulte el archivo **detected_faces.jpg** que se genera en la misma carpeta que el archivo de código para ver las caras anotadas. En este caso, el código ha usado los atributos de la cara para estimar la edad de cada persona de la imagen y las coordenadas del rectángulo delimitador para dibujar un rectángulo alrededor de cada cara.
+7. Consulte el archivo **detected_faces.jpg** que se genera en la misma carpeta que el archivo de código para ver las caras anotadas. En este caso, el código ha usado los atributos de la cara para etiquetar la ubicación de la parte superior izquierda del rectángulo y las coordenadas del rectángulo delimitador para dibujar un rectángulo alrededor de cada cara.
 
 ## <a name="prepare-to-use-the-face-sdk"></a>Preparación para el uso del SDK de Face
 
@@ -309,7 +311,7 @@ Aunque el servicio **Computer Vision** ofrece detección de caras básica (junto
 
 ## <a name="detect-and-analyze-faces"></a>Detección y análisis de caras
 
-Una de las funcionalidades más fundamentales del servicio Face es la detección de caras de una imagen y la determinación de sus atributos, como la edad, las expresiones emocionales, el color del cabello, la presencia de gafas, etc.
+Una de las funcionalidades más fundamentales del servicio Face es la detección de caras de una imagen y la determinación de sus atributos, como la posición de la cabeza, el desenfoque, la presencia de gafas, etc.
 
 1. En el archivo de código de la aplicación, en la función **Main**, examine el código que se ejecuta si el usuario selecciona la opción de menú **1**. Este código llama a la función **DetectFaces** y pasa la ruta de acceso a un archivo de imagen.
 2. Busque la función **DetectFaces** en el archivo de código y, debajo del comentario **Specify facial features to be retrieved** (Especificar características faciales que se recuperarán), agregue el código siguiente:
@@ -320,8 +322,8 @@ Una de las funcionalidades más fundamentales del servicio Face es la detección
     // Specify facial features to be retrieved
     List<FaceAttributeType?> features = new List<FaceAttributeType?>
     {
-        FaceAttributeType.Age,
-        FaceAttributeType.Emotion,
+        FaceAttributeType.Occlusion,
+        FaceAttributeType.Blur,
         FaceAttributeType.Glasses
     };
     ```
@@ -330,8 +332,8 @@ Una de las funcionalidades más fundamentales del servicio Face es la detección
 
     ```Python
     # Specify facial features to be retrieved
-    features = [FaceAttributeType.age,
-                FaceAttributeType.emotion,
+    features = [FaceAttributeType.occlusion,
+                FaceAttributeType.blur,
                 FaceAttributeType.glasses]
     ```
 
@@ -361,15 +363,11 @@ using (var imageData = File.OpenRead(imageFile))
         {
             // Get face properties
             Console.WriteLine($"\nFace ID: {face.FaceId}");
-            Console.WriteLine($" - Age: {face.FaceAttributes.Age}");
-            Console.WriteLine($" - Emotions:");
-            foreach (var emotion in face.FaceAttributes.Emotion.ToRankedList())
-            {
-                Console.WriteLine($"   - {emotion}");
-            }
-
+            Console.WriteLine($" - Mouth Occluded: {face.FaceAttributes.Occlusion.MouthOccluded}");
+            Console.WriteLine($" - Eye Occluded: {face.FaceAttributes.Occlusion.EyeOccluded}");
+            Console.WriteLine($" - Blur: {face.FaceAttributes.Blur.BlurLevel}");
             Console.WriteLine($" - Glasses: {face.FaceAttributes.Glasses}");
-
+            
             // Draw and annotate face
             var r = face.FaceRectangle;
             Rectangle rect = new Rectangle(r.Left, r.Top, r.Width, r.Height);
@@ -410,14 +408,16 @@ with open(image_file, mode="rb") as image_data:
             # Get face properties
             print('\nFace ID: {}'.format(face.face_id))
             detected_attributes = face.face_attributes.as_dict()
-            age = 'age unknown' if 'age' not in detected_attributes.keys() else int(detected_attributes['age'])
-            print(' - Age: {}'.format(age))
+            if 'blur' in detected_attributes:
+                print(' - Blur:')
+                for blur_name in detected_attributes['blur']:
+                    print('   - {}: {}'.format(blur_name, detected_attributes['blur'][blur_name]))
+                    
+            if 'occlusion' in detected_attributes:
+                print(' - Occlusion:')
+                for occlusion_name in detected_attributes['occlusion']:
+                    print('   - {}: {}'.format(occlusion_name, detected_attributes['occlusion'][occlusion_name]))
 
-            if 'emotion' in detected_attributes:
-                print(' - Emotions:')
-                for emotion_name in detected_attributes['emotion']:
-                    print('   - {}: {}'.format(emotion_name, detected_attributes['emotion'][emotion_name]))
-            
             if 'glasses' in detected_attributes:
                 print(' - Glasses:{}'.format(detected_attributes['glasses']))
 

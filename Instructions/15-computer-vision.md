@@ -2,12 +2,12 @@
 lab:
   title: Análisis de imágenes con Computer Vision
   module: Module 8 - Getting Started with Computer Vision
-ms.openlocfilehash: 5b7f15550844e4bc5efbdb3b8ee00d71760f18c9
-ms.sourcegitcommit: d6da3bcb25d1cff0edacd759e75b7608a4694f03
+ms.openlocfilehash: f2ee18ff682d53e9fd554749ed2b9cbaa9b03611
+ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 11/16/2021
-ms.locfileid: "132625878"
+ms.lasthandoff: 07/09/2022
+ms.locfileid: "147041670"
 ---
 # <a name="analyze-images-with-computer-vision"></a>Análisis de imágenes con Computer Vision
 
@@ -15,18 +15,18 @@ Computer Vision es una funcionalidad de inteligencia artificial que permite a lo
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
-Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
+Si aún no ha clonado el repositorio de código **AI-102-AIEngineer** en el entorno en el que está trabajando en este laboratorio, siga estos pasos para hacerlo. De lo contrario, abra la carpeta clonada en Visual Studio Code.
 
 1. Inicie Visual Studio Code.
-2. Abra la paleta (Mayús+Ctrl+P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
-3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
+2. Abra la paleta (Mayús + Ctrl + P) y ejecute un comando **Git: Clone** para clonar el repositorio `https://github.com/MicrosoftLearning/AI-102-AIEngineer` en una carpeta local (no importa qué carpeta).
+3. Cuando se haya clonado el repositorio, abra la carpeta en Visual Studio Code.
 4. Espere mientras se instalan archivos adicionales para admitir los proyectos de código de C# en el repositorio.
 
     > **Nota**: Si se le pide que agregue los recursos necesarios para compilar y depurar, seleccione **Ahora no**.
 
 ## <a name="provision-a-cognitive-services-resource"></a>Aprovisionamiento de un recurso de Cognitive Services
 
-Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
+Si aún no tiene uno en su suscripción, deberá aprovisionar un recurso de **Cognitive Services**.
 
 1. Inicie sesión en Azure Portal en `https://portal.azure.com` y regístrese con la cuenta de Microsoft asociada a su suscripción de Azure.
 2. Seleccione el botón **+Crear un recurso**, busque *Cognitive Services* y cree un recurso de **Cognitive Services** con la siguiente configuración:
@@ -36,7 +36,7 @@ Si aún no tiene ninguno en su suscripción, deberá aprovisionar un recurso de 
     - **Nombre**: *escriba un nombre único*
     - **Plan de tarifa**: estándar S0
 3. Active las casillas necesarias y cree el recurso.
-4. Espere a que se complete la implementación y, a continuación, consulte los detalles.
+4. Espere a que se complete la implementación y, a continuación, vea los detalles de la implementación.
 5. Cuando se haya implementado el recurso, vaya a él y vea su página **Keys and Endpoint** (Claves y punto de conexión). Necesitará el punto de conexión y una de las claves de esta página en el procedimiento siguiente.
 
 ## <a name="prepare-to-use-the-computer-vision-sdk"></a>Preparación para el uso del SDK de Computer Vision
@@ -265,16 +265,15 @@ if (len(analysis.tags) > 0):
 
 ## <a name="get-image-categories"></a>Obtención de categorías de imagen
 
-El servicio Computer Vision puede sugerir *categorías* para imágenes y, dentro de cada categoría, puede identificar puntos de referencia o celebridades conocidos.
+El servicio Computer Vision puede sugerir *categorías* para imágenes y, dentro de cada categoría, puede identificar puntos de referencia conocidos.
 
-1. En la función **AnalyzeImage**, en el comentario **Get image categories (including celebrities and landmarks)** (Obtener etiquetas de imagen [incluidas las celebridades y los puntos de referencia]), agregue el código siguiente:
+1. En la función **AnalyzeImage**, en el comentario **Get image categories** (Obtener categorías de imagen), agregue el código siguiente:
 
 **C#**
 
 ```C
-// Get image categories (including celebrities and landmarks)
+// Get image categories
 List<LandmarksModel> landmarks = new List<LandmarksModel> {};
-List<CelebritiesModel> celebrities = new List<CelebritiesModel> {};
 Console.WriteLine("Categories:");
 foreach (var category in analysis.Categories)
 {
@@ -292,18 +291,6 @@ foreach (var category in analysis.Categories)
             }
         }
     }
-
-    // Get celebrities in this category
-    if (category.Detail?.Celebrities != null)
-    {
-        foreach (CelebritiesModel celebrity in category.Detail.Celebrities)
-        {
-            if (!celebrities.Any(item => item.Name == celebrity.Name))
-            {
-                celebrities.Add(celebrity);
-            }
-        }
-    }
 }
 
 // If there were landmarks, list them
@@ -316,25 +303,15 @@ if (landmarks.Count > 0)
     }
 }
 
-// If there were celebrities, list them
-if (celebrities.Count > 0)
-{
-    Console.WriteLine("Celebrities:");
-    foreach(CelebritiesModel celebrity in celebrities)
-    {
-        Console.WriteLine($" -{celebrity.Name} (confidence: {celebrity.Confidence.ToString("P")})");
-    }
-}
 ```
 
 **Python**
 
 ```Python
-# Get image categories (including celebrities and landmarks)
+# Get image categories
 if (len(analysis.categories) > 0):
     print("Categories:")
     landmarks = []
-    celebrities = []
     for category in analysis.categories:
         # Print the category
         print(" -'{}' (confidence: {:.2f}%)".format(category.name, category.score * 100))
@@ -345,27 +322,15 @@ if (len(analysis.categories) > 0):
                     if landmark not in landmarks:
                         landmarks.append(landmark)
 
-            # Get celebrities in this category
-            if category.detail.celebrities:
-                for celebrity in category.detail.celebrities:
-                    if celebrity not in celebrities:
-                        celebrities.append(celebrity)
-
     # If there were landmarks, list them
     if len(landmarks) > 0:
         print("Landmarks:")
         for landmark in landmarks:
             print(" -'{}' (confidence: {:.2f}%)".format(landmark.name, landmark.confidence * 100))
 
-    # If there were celebrities, list them
-    if len(celebrities) > 0:
-        print("Celebrities:")
-        for celebrity in celebrities:
-            print(" -'{}' (confidence: {:.2f}%)".format(celebrity.name, celebrity.confidence * 100))
-
 ```
     
-2. Guarde los cambios y ejecute el programa una vez para cada uno de los archivos de imagen de la carpeta **images**, y observe que, además de las etiquetas y el título de la imagen, se muestra una lista de categorías sugeridas junto con los puntos de referencia o celebridades reconocidos (en particular en las imágenes **building.jpg** y **person.jpg**).
+2. Guarde los cambios y ejecute el programa una vez para cada uno de los archivos de imagen de la carpeta **images**, y observe que, además de las etiquetas y el título de la imagen, se muestra una lista de categorías sugeridas junto con los puntos de referencia reconocidos (en particular en la imagen **building.jpg**).
 
 ## <a name="get-brands-in-an-image"></a>Obtención de las marcas de una imagen
 
