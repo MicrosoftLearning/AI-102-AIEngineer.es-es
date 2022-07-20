@@ -2,18 +2,18 @@
 lab:
   title: Análisis de vídeo con Video Analyzer
   module: Module 8 - Getting Started with Computer Vision
-ms.openlocfilehash: ec23e53f363ed7c7df8fd598cfd1fc8807712f05
-ms.sourcegitcommit: 7191e53bc33cda92e710d957dde4478ee2496660
+ms.openlocfilehash: 50223cdfeb0a22933858d595d9329f8b8dcd873d
+ms.sourcegitcommit: e20d9099aaecdefa62a763dae24833b97e3d9f6d
 ms.translationtype: HT
 ms.contentlocale: es-ES
-ms.lasthandoff: 07/09/2022
-ms.locfileid: "147041679"
+ms.lasthandoff: 07/11/2022
+ms.locfileid: "147052858"
 ---
 # <a name="analyze-video-with-video-analyzer"></a>Análisis de vídeo con Video Analyzer
 
 Una gran proporción de los datos creados y consumidos hoy en día tiene el formato de vídeo. **Video Analyzer for Media** es un servicio con tecnología de inteligencia artificial que puede usar para indexar vídeos y extraer información de ellos.
 
-> **Nota**: A partir del 21 de junio de 2022, las funcionalidades de Cognitive Services que devuelven información de identificación personal están restringidas a los clientes a los que se les ha concedido [acceso limitado](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access). Además, las funcionalidades que infieren el estado emocional ya no están disponibles. Estas restricciones pueden afectar a este ejercicio de laboratorio. Estamos trabajando para solucionar esto, pero, mientras tanto, es posible que experimente algunos errores al realizar los pasos siguientes; es por ello que nos disculpamos. Para obtener más detalles sobre los cambios realizados por Microsoft y la razón de estos, consulte el blog sobre [inversiones de inteligencia artificial y medidas de seguridad responsables para el reconocimiento facial](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/).
+> **Nota**: A partir del 21 de junio de 2022, las funcionalidades de Cognitive Services que devuelven información de identificación personal están restringidas a los clientes a los que se les ha concedido [acceso limitado](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-limited-access). Sin obtener una aprobación de acceso limitada, no está disponible el reconocimiento de personas y celebridades con Video Analyzer para este laboratorio. Para obtener más detalles sobre los cambios realizados por Microsoft y la razón de estos, consulte el blog sobre [inversiones de inteligencia artificial y medidas de seguridad responsables para el reconocimiento facial](https://azure.microsoft.com/blog/responsible-ai-investments-and-safeguards-for-facial-recognition/).
 
 ## <a name="clone-the-repository-for-this-course"></a>Clonación del repositorio para este curso
 
@@ -80,34 +80,6 @@ Puede usar Video Analyzer para buscar información en el vídeo.
 
 ![Resultados de búsqueda de Video Analyzer para Abeja](./images/video-indexer-search.png)
 
-## <a name="edit-insights"></a>Edición de información
-
-Puede usar Video Analyzer para editar la información que se ha encontrado y agregar información personalizada para que el vídeo tenga aún más sentido.
-
-1. Rebobine el vídeo al principio y vea las **personas** que aparecen en la parte superior del panel **Información**. Observe que se ha reconocido a algunas personas, como **Eric Horwitz**, un científico informático y técnico de Microsoft.
-
-![Información de Video Analyzer para una persona conocida](./images/video-indexer-known-person.png)
-
-2. Seleccione la foto de Eric Horwitz y vea la información que aparece debajo; para ello, expanda la sección **Show biography** (Mostrar biografía) para ver información sobre esta persona.
-3. Observe que se indican las ubicaciones del vídeo donde aparece. Puede usarlas para ver esas secciones del vídeo.
-4. En el reproductor de vídeo, busque la persona que habla aproximadamente en el minuto 0:34:
-
-![Información de Video Analyzer para una persona desconocida](./images/video-indexer-unknown-person.png)
-
-5. Observe que esta persona no se reconoce y se le ha asignado un nombre genérico, como **Desconocido n.º 1**. Sin embargo, el vídeo incluye una leyenda con el nombre de esta persona, por lo que podemos enriquecer la información editando sus detalles.
-6. En la parte superior derecha del portal, seleccione el icono **Edición** (&#x1F589;). A continuación, cambie el nombre de la persona desconocida a **Natasha Crampton**.
-
-![Edición de una persona en Video Analyzer](./images/video-indexer-edit-name.png)
-
-7. Una vez que haya realizado el cambio de nombre, busque *Natasha* en el panel **Información**. Los resultados deberían incluir una persona e indicar las secciones del vídeo en las que aparecen.
-8. En la parte superior izquierda del portal, expanda el menú (≡) y seleccione la página **Personalizaciones del modelo**. A continuación, en la pestaña **Personas**, observe que el modelo de personas **Predeterminadas** tiene una persona en él. Video Analyzer ha agregado la persona a la que le ha puesto un nombre al modelo de personas, de modo que se reconocerá en los vídeos futuros que indexe en su cuenta.
-
-![El modelo de personas predeterminadas en Video Analyzer](./images/video-indexer-custom-model.png)
-
-Puede agregar imágenes de personas al modelo de personas predeterminadas o agregar nuevos modelos propios. Esto le permite definir colecciones de personas con imágenes de su cara para que Video Analyzer pueda reconocerlas en los vídeos.
-
-Observe también que también puede crear modelos personalizados para el lenguaje (por ejemplo, para especificar terminología específica del sector que quiera que Video Analyzer reconozca) y marcas (por ejemplo, nombres de empresa o producto).
-
 ## <a name="use-video-analyzer-widgets"></a>Uso de widgets de Video Analyzer
 
 El portal de Video Analyzer es una interfaz útil para administrar proyectos de indexación de vídeo. Sin embargo, puede haber ocasiones en las que quiera que el vídeo y su información estén disponibles para las personas que no tienen acceso a su cuenta de Video Analyzer. Video Analyzer proporciona widgets que puede insertar en una página web para este propósito.
@@ -155,5 +127,7 @@ Todas las interacciones con la API de REST de Video Analyzer siguen el mismo pat
 6. Vea la respuesta JSON del servicio REST, que debe contener detalles del vídeo **IA responsable** que indexó anteriormente.
 
 ## <a name="more-information"></a>Más información
+
+El reconocimiento de personas y celebridades sigue estando disponible pero, en función del [Estándar de inteligencia artificial responsable](https://aka.ms/aah91ff), está restringido por una directiva de acceso limitado. Estas características incluyen la identificación facial y el reconocimiento de celebridades. Para más información y solicitar acceso, consulte el [acceso limitado para Cognitive Services](https://docs.microsoft.com/en-us/azure/cognitive-services/cognitive-services-limited-access).
 
 Para obtener más información acerca de **Video Analyzer**, consulte la [documentación de Video Analyzer](https://docs.microsoft.com/azure/azure-video-analyzer/video-analyzer-for-media-docs/).
